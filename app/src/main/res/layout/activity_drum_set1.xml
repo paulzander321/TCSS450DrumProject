@@ -19,4 +19,76 @@
         android:layout_y="7dp"
         android:clickable="true"
         android:onClick="playCrash"/>
+
+    <TextView
+        android:layout_width="71dp"
+        android:layout_height="99dp"
+        android:id="@+id/Tom1"
+        android:layout_x="95dp"
+        android:layout_y="58dp"
+        android:clickable="true"
+        android:onClick="playTom1"/>
+
+    <TextView
+        android:layout_width="62dp"
+        android:layout_height="90dp"
+        android:id="@+id/snare"
+        android:layout_x="83dp"
+        android:layout_y="225dp"
+        android:clickable="true"
+        android:onClick="playSnare"/>
+
+    <TextView
+        android:layout_width="76dp"
+        android:layout_height="121dp"
+        android:id="@+id/Tom2"
+        android:layout_x="179dp"
+        android:layout_y="56dp"
+        android:clickable="true"
+        android:onClick="playTom2"/>
+
+    <TextView
+        android:layout_width="101dp"
+        android:layout_height="151dp"
+        android:id="@+id/floor_tom"
+        android:layout_x="212dp"
+        android:layout_y="204dp"
+        android:clickable="true"
+        android:onClick="playFloorTom"/>
+
+    <TextView
+        android:layout_width="111dp"
+        android:layout_height="160dp"
+        android:id="@+id/ride"
+        android:layout_x="257dp"
+        android:layout_y="44dp"
+        android:clickable="true"
+        android:onClick="playRide"/>
+
+    <TextView
+        android:layout_width="78dp"
+        android:layout_height="114dp"
+        android:id="@+id/high_hat"
+        android:layout_x="4dp"
+        android:layout_y="196dp"
+        android:clickable="true"
+        android:onClick="playHiHat"/>
+
+    <TextView
+        android:layout_width="34dp"
+        android:layout_height="77dp"
+        android:id="@+id/high_hat2"
+        android:layout_x="35dp"
+        android:layout_y="305dp"
+        android:clickable="true"
+        android:onClick="playHiHat"/>
+
+    <TextView
+        android:layout_width="54dp"
+        android:layout_height="113dp"
+        android:id="@+id/kick"
+        android:layout_x="157dp"
+        android:layout_y="219dp"
+        android:clickable="true"
+        android:onClick="playKick"/>
 </AbsoluteLayout>
