@@ -12,8 +12,15 @@
     tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Play Drums"
+        android:id="@+id/play_drums"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:onClick="playDrums" />
 </RelativeLayout>
