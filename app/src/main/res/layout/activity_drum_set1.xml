@@ -17,7 +17,8 @@
         android:id="@+id/crash"
         android:layout_x="-7dp"
         android:layout_y="7dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playCrash"/>
 
     <TextView
         android:layout_width="71dp"
@@ -25,7 +26,8 @@
         android:id="@+id/Tom1"
         android:layout_x="95dp"
         android:layout_y="58dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playTom1"/>
 
     <TextView
         android:layout_width="62dp"
@@ -33,7 +35,8 @@
         android:id="@+id/snare"
         android:layout_x="83dp"
         android:layout_y="225dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playSnare"/>
 
     <TextView
         android:layout_width="76dp"
@@ -41,7 +44,8 @@
         android:id="@+id/Tom2"
         android:layout_x="179dp"
         android:layout_y="56dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playTom2"/>
 
     <TextView
         android:layout_width="101dp"
@@ -49,7 +53,8 @@
         android:id="@+id/floor_tom"
         android:layout_x="212dp"
         android:layout_y="204dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playFloorTom"/>
 
     <TextView
         android:layout_width="111dp"
@@ -57,7 +62,8 @@
         android:id="@+id/ride"
         android:layout_x="257dp"
         android:layout_y="44dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playRide"/>
 
     <TextView
         android:layout_width="78dp"
@@ -65,7 +71,8 @@
         android:id="@+id/high_hat"
         android:layout_x="4dp"
         android:layout_y="196dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playHiHat"/>
 
     <TextView
         android:layout_width="34dp"
@@ -73,7 +80,8 @@
         android:id="@+id/high_hat2"
         android:layout_x="35dp"
         android:layout_y="305dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playHiHat"/>
 
     <TextView
         android:layout_width="54dp"
@@ -81,21 +89,22 @@
         android:id="@+id/kick"
         android:layout_x="157dp"
         android:layout_y="219dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:onClick="playKick"/>
 
     <Button
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/record"
         android:layout_x="0dp"
-        android:layout_y="420dp"
+        android:layout_y="416dp"
         android:background="@drawable/recordbutton" />
 
     <Button
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/play"
-        android:layout_x="290dp"
-        android:layout_y="420dp"
+        android:layout_x="265dp"
+        android:layout_y="411dp"
         android:background="@drawable/play" />
 </AbsoluteLayout>
