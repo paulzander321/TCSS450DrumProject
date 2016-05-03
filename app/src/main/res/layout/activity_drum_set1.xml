@@ -7,8 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.Drums.DrumSet1"
     android:background="@drawable/drumset1"
+    tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.drums.DrumSet1"
     >
 
     <TextView

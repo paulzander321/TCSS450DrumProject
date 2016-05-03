@@ -1,7 +1,5 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
-import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
@@ -11,12 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
@@ -58,8 +53,8 @@ public class DrumSet1 extends AppCompatActivity {
             time.clear();
         }
         mRecord = true;
-        music = new ArrayList<Integer>();
-        time = new ArrayList<Long>();
+        music = new ArrayList<>();
+        time = new ArrayList<>();
         startTime = SystemClock.elapsedRealtime();
         btnRecord.setVisibility(TextView.INVISIBLE);
         btnStopRecord.setVisibility(TextView.VISIBLE);
