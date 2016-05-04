@@ -6,15 +6,23 @@
     tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.authenticate.LoginFragment">
 
     <EditText
+        android:id="@+id/enter_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_username_hint"/>
+
+    <EditText
         android:id="@+id/enter_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
         android:hint="@string/enter_id_hint"/>
 
     <EditText
         android:id="@+id/enter_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:hint="@string/enter_password_hint"/>
 
     <LinearLayout
@@ -26,14 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signin_text"
-            android:layout_gravity="right" />
+            android:layout_gravity="center_vertical" />
 
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_button"
-            android:layout_gravity="right" />
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
 </LinearLayout>

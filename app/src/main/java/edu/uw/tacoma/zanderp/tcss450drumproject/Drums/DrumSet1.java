@@ -44,7 +44,6 @@ public class DrumSet1 extends AppCompatActivity {
         btnPause = (Button)findViewById(R.id.pausebutton);
     }
 
-
     public void startRecording(View view) throws IOException {
         if (music != null){
             music.clear();

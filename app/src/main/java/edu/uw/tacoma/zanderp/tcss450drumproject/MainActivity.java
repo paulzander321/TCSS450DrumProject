@@ -1,6 +1,8 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -24,6 +27,7 @@ import com.facebook.login.widget.LoginButton;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import edu.uw.tacoma.zanderp.tcss450drumproject.authenticate.SignInActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.drums.DrumSet1;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,7 +62,21 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        if (id == R.id.logout) {
+            SharedPreferences sharedPreferences =
+                    getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+            sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
+                    .apply();
+
+            Intent i = new Intent(this, SignInActivity.class);
+            startActivity(i);
+            Toast.makeText(this,"Logout Successful!", Toast.LENGTH_LONG)
+                    .show();
+            finish();
             return true;
         }
 
