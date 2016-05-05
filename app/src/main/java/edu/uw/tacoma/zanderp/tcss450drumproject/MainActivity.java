@@ -32,7 +32,7 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.drums.DrumSet1;
 
 public class MainActivity extends AppCompatActivity {
 
-    CallbackManager callbackManager;
+//    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                     getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
             sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
                     .apply();
-
             Intent i = new Intent(this, SignInActivity.class);
             startActivity(i);
             Toast.makeText(this,"Logout Successful!", Toast.LENGTH_LONG)
