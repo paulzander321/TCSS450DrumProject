@@ -12,15 +12,16 @@ import android.widget.Toast;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
+/**
+ * Fragment for handling User log in and registration.
+ */
 public class LoginFragment extends Fragment {
-
-    private LoginInteractionListener mListener;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-    public static LoginFragment newInstance(String param1, String param2) {
+    public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -129,22 +130,9 @@ public class LoginFragment extends Fragment {
         return v;
     }
 
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     /**

@@ -12,15 +12,60 @@
     tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.MainActivity"
     tools:showIn="@layout/activity_main">
 
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Play Drums"
+        android:text="@string/play_drums_button_text"
         android:id="@+id/play_drums"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:clickable="true"
         android:onClick="playDrums" />
+
+    <!--The following code is for the second phase of the project-->
+
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/view_users_button_text"-->
+        <!--android:id="@+id/button"-->
+        <!--android:layout_below="@+id/play_drums"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="View My Recordings"-->
+        <!--android:id="@+id/button"-->
+        <!--android:layout_below="@+id/button2"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:visibility="invisible" />-->
+
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Customize Drumset"-->
+        <!--android:id="@+id/button2"-->
+        <!--android:layout_below="@+id/play_drums"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:visibility="invisible" />-->
+
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Explore Community Recordings"-->
+        <!--android:id="@+id/button3"-->
+        <!--android:layout_below="@+id/button"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:visibility="invisible" />-->
+
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Help"-->
+        <!--android:id="@+id/button4"-->
+        <!--android:layout_below="@+id/button3"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:visibility="invisible" />-->
 </RelativeLayout>

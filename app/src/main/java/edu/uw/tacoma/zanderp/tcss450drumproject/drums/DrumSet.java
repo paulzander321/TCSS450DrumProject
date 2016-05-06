@@ -1,7 +1,6 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.media.MediaPlayer;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,16 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.IOException;
-
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
-public class DrumSet1 extends AppCompatActivity {
+/**
+ * The DrumSet displays the drum play screen to the user and allows them to play different
+ * drums as well as record and listen to their recording.
+ */
+public class DrumSet extends AppCompatActivity {
     private Button btnRecord;
     private Button btnStopRecord;
     private Button btnPlay;
     private Button btnPause;
-    private String FILE;
     private Boolean mRecord;
     private Recording mRecording;
     private Long mStart;
@@ -26,8 +26,7 @@ public class DrumSet1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drum_set1);
-        FILE = Environment.getExternalStorageState() + "tempRecording.3gp";
+        setContentView(R.layout.activity_drum_set);
         mRecord = false;
         btnRecord = (Button)findViewById(R.id.record);
         btnStopRecord = (Button)findViewById(R.id.stopbutton);
@@ -37,14 +36,23 @@ public class DrumSet1 extends AppCompatActivity {
         mStart = SystemClock.elapsedRealtime();
     }
 
-    public void startRecording(View view) throws IOException {
+    /**
+     * Starts the recording of notes being played. If there is currently
+     * a recording, will destroy it and start with black recording.
+     */
+    public void startRecording(View view) {
         mRecording = new Recording();
         mRecord = true;
+        btnPause.setVisibility(TextView.INVISIBLE);
+        btnPlay.setVisibility(TextView.INVISIBLE);
         btnRecord.setVisibility(TextView.INVISIBLE);
         btnStopRecord.setVisibility(TextView.VISIBLE);
         mStart = SystemClock.elapsedRealtime();
     }
 
+    /**
+     * Stops recording of notes being played.
+     */
     public void stopRecording(View view){
         mRecord = false;
         btnRecord.setVisibility(TextView.VISIBLE);
@@ -52,18 +60,27 @@ public class DrumSet1 extends AppCompatActivity {
         btnPlay.setVisibility(TextView.VISIBLE);
     }
 
-    public void playRecording(View view) throws IOException, InterruptedException {
+    /**
+     * Plays the currently saved recording.
+     */
+    public void playRecording(View view) {
         btnPlay.setVisibility(TextView.INVISIBLE);
         btnPause.setVisibility(TextView.VISIBLE);
         mRecording.playRecording(this);
     }
 
+    /**
+     * Stops the currently playing recording.
+     */
     public void stopPlaying(View view){
         mRecording.stopRecording();
         btnPause.setVisibility(TextView.INVISIBLE);
         btnPlay.setVisibility(TextView.VISIBLE);
     }
 
+    /**
+     * Plays the crash instrument and records if recording.
+     */
     public void playCrash(View view){
         final MediaPlayer crash = MediaPlayer.create(this,R.raw.crash);
         crash.start();
@@ -78,6 +95,9 @@ public class DrumSet1 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Playst the tom1 and records if recording.
+     */
     public void playTom1(View view){
         final MediaPlayer tom1 = MediaPlayer.create(this, R.raw.tom2);
         tom1.start();
@@ -92,6 +112,9 @@ public class DrumSet1 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plays snare and records if recording.
+     */
     public void playSnare(View view){
         final MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
         snare.start();
@@ -107,6 +130,9 @@ public class DrumSet1 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plays the tom2 and records if currently recording.
+     */
     public void playTom2(View view){
         final MediaPlayer tom2 = MediaPlayer.create(this, R.raw.tomshort);
         tom2.start();
@@ -121,6 +147,9 @@ public class DrumSet1 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plays the floor tom and records if currently recording.
+     */
     public void playFloorTom(View view){
         final MediaPlayer tomFloor = MediaPlayer.create(this, R.raw.tom1);
         tomFloor.start();
@@ -135,6 +164,9 @@ public class DrumSet1 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plays the ride and records if recording.
+     */
     public void playRide(View view) {
         final MediaPlayer ride = MediaPlayer.create(this, R.raw.ride);
         ride.start();
@@ -149,6 +181,9 @@ public class DrumSet1 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plays hihat, will add note to recording if currently recording.
+     */
     public void playHiHat(View view){
         final MediaPlayer hihat = MediaPlayer.create(this, R.raw.hihat);
         hihat.start();
@@ -163,6 +198,9 @@ public class DrumSet1 extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plays the kick instrument, if currently recording then add note to recording.
+     */
     public void playKick(View view){
         final MediaPlayer kick = MediaPlayer.create(this, R.raw.kick1);
         kick.start();

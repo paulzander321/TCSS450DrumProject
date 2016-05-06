@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/drumset1"
-    tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.drums.DrumSet1"
+    tools:context=".drums.DrumSet"
     >
 
     <TextView
@@ -99,6 +99,7 @@
         android:layout_x="0dp"
         android:layout_y="416dp"
         android:background="@drawable/recordbutton"
+        android:clickable="true"
         android:onClick="startRecording"/>
 
     <Button
@@ -109,6 +110,7 @@
         android:layout_y="416dp"
         android:background="@drawable/stopbutton"
         android:onClick="stopRecording"
+        android:clickable="false"
         android:visibility="invisible"/>
 
     <Button
@@ -119,6 +121,7 @@
         android:layout_y="411dp"
         android:background="@drawable/play"
         android:onClick="playRecording"
+        android:clickable="false"
         android:visibility="invisible"/>
 
     <Button
@@ -129,5 +132,16 @@
         android:layout_y="411dp"
         android:background="@drawable/pause"
         android:onClick="stopPlaying"
+        android:clickable="false"
         android:visibility="invisible"/>
+
+    <!--<Button-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="61dp"-->
+        <!--android:id="@+id/download_button"-->
+        <!--android:layout_x="70dp"-->
+        <!--android:layout_y="414dp"-->
+        <!--android:background="@drawable/download_arrow"-->
+        <!--android:visibility="visible" />-->
+
 </AbsoluteLayout>

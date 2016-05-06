@@ -18,6 +18,9 @@ public class Recording implements Serializable {
      */
     private ArrayList<Note> mNotes;
 
+    /**
+     * True if this recording is being played, false if not.
+     */
     private boolean mIsPlaying;
 
     /**
@@ -41,31 +44,9 @@ public class Recording implements Serializable {
      * @param ctx the context for recording to be played
      */
     public void playRecording(final AppCompatActivity ctx) {
-        if (mNotes.size() > 0) {
-            mIsPlaying = true;
-            Collections.sort(mNotes);
-            playRecordingHelper(ctx, mNotes.get(0).getmTimeFromStart(), 0);
+        for (int i = 0; i < mNotes.size(); i++) {
+            mNotes.get(i).playNote(ctx);
         }
-    }
-
-    /**
-     * Helper method for playing recording.
-     * @param ctx the context for play
-     * @param delay delay until next note
-     * @param noteIndex current note's index in recording
-     */
-    private void playRecordingHelper(final AppCompatActivity ctx, final Long delay, final int noteIndex) {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mNotes.get(noteIndex).playNote(ctx);
-                if (noteIndex + 1 < mNotes.size() && mIsPlaying) {
-                    playRecordingHelper(ctx, mNotes.get(noteIndex + 1).getmTimeFromStart()
-                            - mNotes.get(noteIndex).getmTimeFromStart(), noteIndex + 1);
-                }
-            }
-        }, delay);
     }
 
     /**
@@ -73,6 +54,10 @@ public class Recording implements Serializable {
      */
     public void stopRecording() {
         mIsPlaying = false;
+        for (Note note: mNotes
+             ) {
+            note.stopPlayback();
+        }
     }
 
 }

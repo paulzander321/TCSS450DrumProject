@@ -23,6 +23,10 @@ import java.net.URL;
 import edu.uw.tacoma.zanderp.tcss450drumproject.MainActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
+/**
+ * Screen for user to either create a new account or sign in to an existing one. Once they've done so they are
+ * brought to the main menu of the application.
+ */
 public class SignInActivity extends AppCompatActivity implements LoginFragment.LoginInteractionListener {
 
     private SharedPreferences mSharedPreferences;
@@ -79,8 +83,6 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            //Check if the login and password are valid
-            //new LoginTask().execute(url);
             String url = REGISTER_URL + "?username=" + username + "&email=" + email
                     + "&pwd=" + pwd;
             new RegisterTask().execute(new String[]{url});
@@ -100,6 +102,10 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
         }
     }
 
+    /**
+     * AsyncTask meant to communicate with a web service to either register or check if
+     * credentials are valid for sign in.
+     */
     private class RegisterTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -146,7 +152,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
                     Toast.makeText(that, reader.getString("error"), Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
-                Toast.makeText(that, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(that, result + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }

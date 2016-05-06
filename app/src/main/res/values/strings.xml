@@ -13,4 +13,6 @@
     <string name="register_button">Register</string>
     <string name="enter_username_hint">Enter username (not required for signin)</string>
     <string name="logout_string">Log Out</string>
+    <string name="play_drums_button_text">Play Drums</string>
+    <string name="view_users_button_text">View Users</string>
 </resources>

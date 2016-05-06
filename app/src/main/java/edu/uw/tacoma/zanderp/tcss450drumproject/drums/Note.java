@@ -1,6 +1,8 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.Serializable;
@@ -23,6 +25,11 @@ public class Note implements Serializable, Comparable<Note> {
     private int mResourceID;
 
     /**
+     * Handler responsible for the timing of this note during playback.
+     */
+    private Handler mHandler;
+
+    /**
      * Creates a new Note.
      * @param offsetTime time from beginning of recording
      * @param resourceID instrument resource id
@@ -33,22 +40,28 @@ public class Note implements Serializable, Comparable<Note> {
     }
 
     /**
-     * Plays this note
-     * @param ctx
+     * Plays this note through the specified context.
+     * @param ctx the context
      */
     public void playNote(final AppCompatActivity ctx) {
-        final MediaPlayer note = MediaPlayer.create(ctx, mResourceID);
-        note.start();
-        note.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                note.release();
+            public void run() {
+                final MediaPlayer note = MediaPlayer.create(ctx, mResourceID);
+                note.start();
+                note.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        note.release();
+                    }
+                });
             }
-        });
+        }, mTimeFromStart);
     }
 
     @Override
-    public int compareTo(Note other) {
+    public int compareTo(@NonNull Note other) {
         return this.mTimeFromStart.intValue() - other.mTimeFromStart.intValue();
     }
 
@@ -57,5 +70,12 @@ public class Note implements Serializable, Comparable<Note> {
      */
     public Long getmTimeFromStart() {
         return mTimeFromStart;
+    }
+
+    /**
+     * Stops the playback of this note if currently playing or scheduled to play.
+     */
+    public void stopPlayback() {
+        mHandler.removeCallbacksAndMessages(null);
     }
 }
