@@ -21,8 +21,8 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".drums.DrumSet" />
-        <activity android:name=".authenticate.SignInActivity">
+        <activity android:name=".Drums.DrumSet" />
+        <activity android:name=".Authenticate.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

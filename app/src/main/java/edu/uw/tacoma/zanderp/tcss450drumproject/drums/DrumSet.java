@@ -1,4 +1,4 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
 
 import android.media.MediaPlayer;
 import android.os.SystemClock;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
 /**

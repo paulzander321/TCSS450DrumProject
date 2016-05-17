@@ -1,4 +1,4 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.authenticate;
+package edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate;
 
 import android.content.Context;
 import android.content.Intent;

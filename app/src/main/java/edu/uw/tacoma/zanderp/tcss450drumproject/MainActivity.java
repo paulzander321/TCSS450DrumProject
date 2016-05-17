@@ -11,8 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import edu.uw.tacoma.zanderp.tcss450drumproject.authenticate.SignInActivity;
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.DrumSet;
+
+import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.DrumSet;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.*;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.DrumSet;
 
 /**
  * The main menu activity of the app. Redirects to drum playing screen. Gives menu option to
