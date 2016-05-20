@@ -1,0 +1,151 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.DrumSet.DrumSet"
+    android:background="@drawable/background">
+
+    <Button
+        android:layout_width="174dp"
+        android:layout_height="163dp"
+        android:id="@+id/bass"
+        android:background="@drawable/bass"
+        android:clickable="false"
+        android:layout_x="87dp"
+        android:layout_y="95dp"/>
+
+    <Button
+        android:layout_width="104dp"
+        android:layout_height="147dp"
+        android:id="@+id/crash"
+        android:background="@drawable/crash"
+        android:layout_x="10dp"
+        android:layout_y="35dp"
+        android:clickable="true"
+        android:onClick="playCrash"/>
+
+    <Button
+        android:layout_width="71dp"
+        android:layout_height="99dp"
+        android:id="@+id/Tom1"
+        android:background="@drawable/hightom"
+        android:layout_x="88dp"
+        android:layout_y="153dp"
+        android:clickable="true"
+        android:onClick="playTom1"/>
+
+    <Button
+        android:layout_width="62dp"
+        android:layout_height="90dp"
+        android:id="@+id/snare"
+        android:background="@drawable/snare"
+        android:layout_x="77dp"
+        android:layout_y="276dp"
+        android:clickable="true"/>
+        <!--android:onClick="playSnare"-->
+
+    <Button
+        android:layout_width="76dp"
+        android:layout_height="121dp"
+        android:id="@+id/Tom2"
+        android:background="@drawable/midtom"
+        android:layout_x="184dp"
+        android:layout_y="134dp"
+        android:clickable="true"
+        android:onClick="playTom2"/>
+
+    <Button
+        android:layout_width="101dp"
+        android:layout_height="151dp"
+        android:id="@+id/floor_tom"
+        android:background="@drawable/lowtom"
+        android:layout_x="244dp"
+        android:layout_y="231dp"
+        android:clickable="true"
+        android:onClick="playFloorTom"/>
+
+    <Button
+        android:layout_width="99dp"
+        android:layout_height="149dp"
+        android:id="@+id/ride"
+        android:background="@drawable/ride"
+        android:layout_x="240dp"
+        android:layout_y="96dp"
+        android:clickable="true"
+        android:onClick="playRide"/>
+
+    <Button
+        android:layout_width="78dp"
+        android:layout_height="114dp"
+        android:id="@+id/high_hat"
+        android:background="@drawable/highhat"
+        android:layout_x="4dp"
+        android:layout_y="196dp"
+        android:clickable="true"
+        android:onClick="playHiHat"/>
+
+    <Button
+        android:layout_width="34dp"
+        android:layout_height="77dp"
+        android:id="@+id/pedal"
+        android:background="@drawable/pedal"
+        android:layout_x="165dp"
+        android:layout_y="259dp"
+        android:clickable="true"
+        android:onClick="playKick"/>
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/record"
+        android:layout_x="0dp"
+        android:layout_y="416dp"
+        android:background="@drawable/recordbutton"
+        android:clickable="true"
+        android:onClick="startRecording"/>
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/stopbutton"
+        android:layout_x="0dp"
+        android:layout_y="416dp"
+        android:background="@drawable/stopbutton"
+        android:onClick="stopRecording"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/play"
+        android:layout_x="265dp"
+        android:layout_y="411dp"
+        android:background="@drawable/play"
+        android:onClick="playRecording"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/pausebutton"
+        android:layout_x="265dp"
+        android:layout_y="411dp"
+        android:background="@drawable/pause"
+        android:onClick="stopPlaying"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <!--<Button-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="61dp"-->
+    <!--android:id="@+id/download_button"-->
+    <!--android:layout_x="70dp"-->
+    <!--android:layout_y="414dp"-->
+    <!--android:background="@drawable/download_arrow"-->
+    <!--android:visibility="visible" />-->
+
+
+
+</AbsoluteLayout>

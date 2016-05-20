@@ -13,18 +13,8 @@ import android.widget.Toast;
 
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
-import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.DrumSet;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.*;
-import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.DrumSet;
+import edu.uw.tacoma.zanderp.tcss450drumproject.DrumSet.DrumCostimization;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Drums;
 
 /**
  * The main menu activity of the app. Redirects to drum playing screen. Gives menu option to
@@ -51,10 +41,14 @@ public class MainActivity extends AppCompatActivity {
      * @param view the view
      */
     public void playDrums(View view){
-        Intent drumset = new Intent(this, DrumSet.class);
+        Intent drumset = new Intent(this, Drums.class);
         startActivity(drumset);
     }
 
+    public void customDrums(View view){
+        Intent custom = new Intent(this, DrumCostimization.class);
+        startActivity(custom);
+    }
 //    public void viewUsers(View view) {
 //        Intent viewUsers = new Intent(this, )
 //    }

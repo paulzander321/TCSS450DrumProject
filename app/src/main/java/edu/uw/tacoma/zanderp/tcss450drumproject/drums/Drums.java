@@ -12,10 +12,10 @@ import java.io.IOException;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
 /**
- * The DrumSet displays the drum play screen to the user and allows them to play different
+ * The Drums displays the drum play screen to the user and allows them to play different
  * drums as well as record and listen to their recording.
  */
-public class DrumSet extends AppCompatActivity {
+public class Drums extends AppCompatActivity {
     private Button btnRecord;
     private Button btnStopRecord;
     private Button btnPlay;
@@ -35,6 +35,13 @@ public class DrumSet extends AppCompatActivity {
         btnPause = (Button)findViewById(R.id.pausebutton);
         mRecording = new Recording();
         mStart = SystemClock.elapsedRealtime();
+        Button snare = (Button)findViewById(R.id.snare);
+        snare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playSnare(v);
+            }
+        });
     }
 
     /**
