@@ -1,4 +1,4 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.authenticate;
+package edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
