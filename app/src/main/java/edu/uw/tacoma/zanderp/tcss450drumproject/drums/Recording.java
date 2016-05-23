@@ -1,11 +1,9 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The Recording class contains a series of notes that are able

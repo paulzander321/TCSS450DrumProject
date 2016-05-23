@@ -14,4 +14,17 @@
         android:id="@+id/fragment"
         android:layout_gravity="center" />
 
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/select"
+        android:id="@+id/select"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setBtnCustom"
+        android:id="@+id/customize"/>
+
 </FrameLayout>
