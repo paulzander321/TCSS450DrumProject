@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
-import edu.uw.tacoma.zanderp.tcss450drumproject.DrumSet.DrumCostimization;
 import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Drums;
 
 /**
@@ -42,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void playDrums(View view){
         Intent drumset = new Intent(this, Drums.class);
+        drumset.putExtra("custom",false);
         startActivity(drumset);
     }
 
     public void customDrums(View view){
-        Intent custom = new Intent(this, DrumCostimization.class);
+        Intent custom = new Intent(this, Drums.class);
+        custom.putExtra("custom",true);
         startActivity(custom);
     }
 //    public void viewUsers(View view) {
