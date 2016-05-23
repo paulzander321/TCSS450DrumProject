@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -20,6 +21,8 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Drums;
  * log out of the application.
  */
 public class MainActivity extends AppCompatActivity {
+    private Button btnPlayDrums;
+    private Button btnCustomize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        btnPlayDrums = (Button)findViewById(R.id.play_drums);
+        btnCustomize = (Button)findViewById(R.id.button2);
     }
 
     @Override
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     /**
      * Starts the drum play activity.

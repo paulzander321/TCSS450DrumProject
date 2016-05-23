@@ -1,5 +1,6 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
 
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,19 @@ public class Drums extends AppCompatActivity {
     private Long mStart;
     private Boolean custom;
     private Button btnCustom;
+    private AbsoluteLayout.LayoutParams paramsSnare;
+    private AbsoluteLayout.LayoutParams paramsTom1;
+    private AbsoluteLayout.LayoutParams paramsTom2;
+    private AbsoluteLayout.LayoutParams paramsFloortom;
+    private AbsoluteLayout.LayoutParams paramsBass;
+    private AbsoluteLayout.LayoutParams paramsCrash;
+    private AbsoluteLayout.LayoutParams paramsRide;
+    private AbsoluteLayout.LayoutParams paramsHihat;
+    private AbsoluteLayout.LayoutParams paramsPedal;
     private final String CUSTOM = "CUSTOM";
+    private final String X_POSITION = "X_POSITION";
+    private final String Y_POSITION = "Y_POSITION";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +76,83 @@ public class Drums extends AppCompatActivity {
         hihat = (Button)findViewById(R.id.high_hat);
         pedal = (Button)findViewById(R.id.pedal);
         btnCustom = (Button)findViewById(R.id.customize);
+        paramsSnare = (AbsoluteLayout.LayoutParams) snare.getLayoutParams();
+        paramsTom1 = (AbsoluteLayout.LayoutParams) tom1.getLayoutParams();
+        paramsTom2 = (AbsoluteLayout.LayoutParams) tom2.getLayoutParams();
+        paramsFloortom = (AbsoluteLayout.LayoutParams) floortom.getLayoutParams();
+        paramsBass = (AbsoluteLayout.LayoutParams) bass.getLayoutParams();
+        paramsCrash = (AbsoluteLayout.LayoutParams) crash.getLayoutParams();
+        paramsHihat = (AbsoluteLayout.LayoutParams) hihat.getLayoutParams();
+        paramsPedal = (AbsoluteLayout.LayoutParams) pedal.getLayoutParams();
+        paramsRide = (AbsoluteLayout.LayoutParams) ride.getLayoutParams();
         setButtons();
+        LoadButtonLocation();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        SaveButtonLocation();
+        super.onBackPressed();
+    }
+
+    private void LoadButtonLocation() {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        paramsSnare.x = sharedPreferences.getInt("SNARE_X",231);
+        paramsSnare.y = sharedPreferences.getInt("SNARE_Y",828);
+//        Log.d(X_POSITION, ""+ (sharedPreferences.getInt("SNARE_X",231)));
+//        Log.d(Y_POSITION,""+(sharedPreferences.getInt("SNARE_Y",231)));
+        paramsTom1.x = sharedPreferences.getInt("TOM1_X",264);
+        paramsTom1.y = sharedPreferences.getInt("TOM1_Y",459);
+        paramsTom2.x = sharedPreferences.getInt("TOM2_X",552);
+        paramsTom2.y = sharedPreferences.getInt("TOM2_Y",402);
+        paramsFloortom.x = sharedPreferences.getInt("FLOORTOM_X",732);
+        paramsFloortom.y = sharedPreferences.getInt("FLOORTOM_Y",693);
+        paramsBass.x = sharedPreferences.getInt("BASS_X",261);
+        paramsBass.y = sharedPreferences.getInt("BASS_Y",285);
+        paramsCrash.x = sharedPreferences.getInt("CRASH_X",35);
+        paramsCrash.y = sharedPreferences.getInt("CRASH_Y",110);
+        paramsHihat.x = sharedPreferences.getInt("HIHAT_X",12);
+        paramsHihat.y = sharedPreferences.getInt("HIHAT_Y",588);
+        paramsPedal.x = sharedPreferences.getInt("PEDAL_X",495);
+        paramsPedal.y = sharedPreferences.getInt("PEDAL_Y",777);
+        paramsRide.x = sharedPreferences.getInt("RIDE_X",720);
+        paramsRide.y = sharedPreferences.getInt("RIDE_Y",288);
+        snare.setLayoutParams(paramsSnare);
+        tom1.setLayoutParams(paramsTom1);
+        tom2.setLayoutParams(paramsTom2);
+        floortom.setLayoutParams(paramsFloortom);
+        bass.setLayoutParams(paramsBass);
+        crash.setLayoutParams(paramsCrash);
+        hihat.setLayoutParams(paramsHihat);
+        pedal.setLayoutParams(paramsPedal);
+        ride.setLayoutParams(paramsRide);
+    }
+
+    private void SaveButtonLocation() {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("SNARE_X", paramsSnare.x);
+        editor.putInt("SNARE_Y", paramsSnare.y);
+        editor.putInt("TOM1_X", paramsTom1.x);
+        editor.putInt("TOM1_Y", paramsTom1.y);
+        editor.putInt("TOM2_X", paramsTom2.x);
+        editor.putInt("TOM2_Y", paramsTom2.y);
+        editor.putInt("FLOORTOM_X", paramsFloortom.x);
+        editor.putInt("FLOORTOM_Y", paramsFloortom.y);
+        editor.putInt("BASS_X", paramsBass.x);
+        editor.putInt("BASS_Y", paramsBass.y);
+        editor.putInt("CRASH_X", paramsCrash.x);
+        editor.putInt("CRASH_Y", paramsCrash.y);
+        editor.putInt("HIHAT_X", paramsHihat.x);
+        editor.putInt("HIHAT_Y", paramsHihat.y);
+        editor.putInt("PEDAL_X", paramsPedal.x);
+        editor.putInt("PEDAL_Y", paramsPedal.y);
+        editor.putInt("RIDE_X", paramsRide.x);
+        editor.putInt("RIDE_Y", paramsRide.y);
+//        Log.d(X_POSITION, ""+ (paramsSnare.x));
+//        Log.d(Y_POSITION,""+(paramsSnare.y));
+        editor.commit();
     }
 
     public void isSelected(View view, Button button){
