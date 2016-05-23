@@ -30,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DrumSet.DrumCostimization"></activity>
     </application>
 
 </manifest>
