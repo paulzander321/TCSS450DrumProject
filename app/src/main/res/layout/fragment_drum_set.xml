@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.DrumSet.DrumSet"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:id="@+id/fragment">
 
     <Button
         android:layout_width="174dp"
@@ -41,8 +42,8 @@
         android:background="@drawable/snare"
         android:layout_x="77dp"
         android:layout_y="276dp"
-        android:clickable="true"/>
-        <!--android:onClick="playSnare"-->
+        android:clickable="true"
+        android:onClick="playSnare"/>
 
     <Button
         android:layout_width="76dp"
