@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Drums.*;
 
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
