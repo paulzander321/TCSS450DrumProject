@@ -1,9 +1,6 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.DrumSet;
 
-import android.annotation.TargetApi;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.v7.app.ActionBar;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
@@ -27,8 +23,10 @@ public class DrumCostimization extends AppCompatActivity {
     private Button ride;
     private Button hihat;
     private Button pedal;
+    private Fragment drums;
     private final String X_POSITION = "X POSITION";
     private final String Y_POSITION = "Y POSITION";
+
 
 
     @Override
@@ -37,6 +35,7 @@ public class DrumCostimization extends AppCompatActivity {
         setContentView(R.layout.activity_drum_costimization);
         Button rec = (Button) findViewById(R.id.record);
         rec.setVisibility(View.INVISIBLE);
+        drums = getFragmentManager().findFragmentById(R.id.fragment);
         selected = (TextView)findViewById(R.id.select);
         snare = (Button)findViewById(R.id.snare);
         snare.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +47,7 @@ public class DrumCostimization extends AppCompatActivity {
         snare.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,snare);
+                drag(v,event,snare);
                 return false;
             }
         });
@@ -62,7 +61,7 @@ public class DrumCostimization extends AppCompatActivity {
         tom1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,tom1);
+                drag(v,event,tom1);
                 return false;
             }
         });
@@ -76,7 +75,7 @@ public class DrumCostimization extends AppCompatActivity {
         tom2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,tom2);
+                drag(v,event,tom2);
                 return false;
             }
         });
@@ -90,7 +89,7 @@ public class DrumCostimization extends AppCompatActivity {
         floortom.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,floortom);
+                drag(v,event,floortom);
                 return false;
             }
         });
@@ -104,7 +103,7 @@ public class DrumCostimization extends AppCompatActivity {
         bass.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,bass);
+                drag(v,event,bass);
                 return false;
             }
         });
@@ -118,7 +117,7 @@ public class DrumCostimization extends AppCompatActivity {
         crash.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,crash);
+                drag(v,event,crash);
                 return false;
             }
         });
@@ -132,7 +131,7 @@ public class DrumCostimization extends AppCompatActivity {
         ride.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,ride);
+                drag(v,event,ride);
                 return false;
             }
         });
@@ -146,7 +145,7 @@ public class DrumCostimization extends AppCompatActivity {
         hihat.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,hihat);
+                drag(v,event,hihat);
                 return false;
             }
         });
@@ -160,47 +159,47 @@ public class DrumCostimization extends AppCompatActivity {
         pedal.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                drag(event,pedal);
+                drag(v,event,pedal);
                 return false;
             }
         });
-
     }
 
     public void isSelected(View view, Button button){
-        int myNewX = button.getBottom();
-        int myNewY = button.getTop();
-        Log.d(X_POSITION, ""+myNewX);
-        Log.d(Y_POSITION,""+myNewY);
+//        int myNewX = button.getBottom();
+//        int myNewY = button.getTop();
         AbsoluteLayout.LayoutParams absParams =
                 (AbsoluteLayout.LayoutParams)button.getLayoutParams();
 //        absParams.x= myNewX;
 //        absParams.y = myNewY;
+        Log.d(X_POSITION, ""+ (absParams.x));
+        Log.d(Y_POSITION,""+(absParams.y));
         selected.setLayoutParams(absParams);
         selected.setVisibility(View.VISIBLE);
     }
 
-    public void drag(MotionEvent event, Button b) {
+    public void drag(View view, MotionEvent event, Button b) {
 
-//        RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) b.getLayoutParams();
-//        b.setSelected(true);
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_MOVE: {
-//                params.topMargin = (int) event.getRawY() - (b.getHeight());
-//                params.leftMargin = (int) event.getRawX() - (b.getWidth() / 2);
-//                b.setLayoutParams(params);
-//                break;
-//            }
-//            case MotionEvent.ACTION_UP: {
-//                params.topMargin = (int) event.getRawY() - (b.getHeight());
-//                params.leftMargin = (int) event.getRawX() - (b.getWidth() / 2);
-//                b.setLayoutParams(params);
-//                break;
-//            }
-//            case MotionEvent.ACTION_DOWN: {
-//                b.setLayoutParams(params);
-//                break;
-//            }
-//        }
+        AbsoluteLayout.LayoutParams params = (AbsoluteLayout.LayoutParams) b.getLayoutParams();
+        b.setSelected(true);
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_MOVE: {
+                params.y = (int) event.getRawY() - 452;
+                params.x = (int) event.getRawX() - 147;
+                b.setLayoutParams(params);
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                params.y = (int) event.getRawY() - 452;
+                params.x = (int) event.getRawX() - 147;
+                b.setLayoutParams(params);
+                break;
+            }
+            case MotionEvent.ACTION_DOWN: {
+                b.setLayoutParams(params);
+                break;
+            }
+        }
     }
+
 }
