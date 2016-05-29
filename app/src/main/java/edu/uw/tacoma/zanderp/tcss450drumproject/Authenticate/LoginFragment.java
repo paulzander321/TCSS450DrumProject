@@ -107,7 +107,6 @@ public class LoginFragment extends Fragment {
                     userIdText.requestFocus();
                     return;
                 }
-
                 if (TextUtils.isEmpty(pwd))  {
                     Toast.makeText(v.getContext(), "Enter password"
                             , Toast.LENGTH_SHORT)

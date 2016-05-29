@@ -1,8 +1,11 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.StringRes;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +13,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
@@ -18,7 +24,7 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.R;
  * The Drums displays the drum play screen to the user and allows them to play different
  * drums as well as record and listen to their recording.
  */
-public class Drums extends AppCompatActivity {
+public class Drums extends AppCompatActivity implements SaveRecordingDialogFragment.SaveRecordingDialogListener {
     private TextView selected;
     private Button snare;
     private Button tom1;
@@ -33,6 +39,7 @@ public class Drums extends AppCompatActivity {
     private Button btnStopRecord;
     private Button btnPlay;
     private Button btnPause;
+    private Button btnSave;
     private Boolean mRecord;
     private Recording mRecording;
     private Long mStart;
@@ -63,7 +70,8 @@ public class Drums extends AppCompatActivity {
         btnStopRecord = (Button)findViewById(R.id.stopbutton);
         btnPlay = (Button)findViewById(R.id.play);
         btnPause = (Button)findViewById(R.id.pausebutton);
-        mRecording = new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording();
+        btnSave = (Button) findViewById(R.id.savebutton);
+        mRecording = new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording();
         mStart = SystemClock.elapsedRealtime();
         selected = (TextView)findViewById(R.id.select);
         snare = (Button)findViewById(R.id.snare);
@@ -87,7 +95,6 @@ public class Drums extends AppCompatActivity {
         paramsRide = (AbsoluteLayout.LayoutParams) ride.getLayoutParams();
         setButtons();
         LoadButtonLocation();
-
     }
 
     @Override
@@ -152,7 +159,7 @@ public class Drums extends AppCompatActivity {
         editor.putInt("RIDE_Y", paramsRide.y);
 //        Log.d(X_POSITION, ""+ (paramsSnare.x));
 //        Log.d(Y_POSITION,""+(paramsSnare.y));
-        editor.commit();
+        editor.apply();
     }
 
     public void isSelected(View view, Button button){
@@ -194,7 +201,7 @@ public class Drums extends AppCompatActivity {
 
     public void setButtons(){
         if(custom) {
-            btnCustom.setText("Play Drums");
+            btnCustom.setText(getText(R.string.play_drums));
             btnRecord.setEnabled(false);
             btnRecord.setVisibility(View.INVISIBLE);
             snare.setOnClickListener(new View.OnClickListener() {
@@ -315,7 +322,7 @@ public class Drums extends AppCompatActivity {
                 }
             });
         }else if(!custom){
-            btnCustom.setText("Customize");
+            btnCustom.setText(getText(R.string.cusomize_drums));
             selected.setVisibility(View.INVISIBLE);
             btnRecord.setEnabled(true);
             btnRecord.setVisibility(View.VISIBLE);
@@ -432,15 +439,16 @@ public class Drums extends AppCompatActivity {
 
     /**
      * Starts the recording of notes being played. If there is currently
-     * a recording, will destroy it and start with black recording.
+     * a recording, will destroy it and start with blank recording.
      */
     public void startRecording(View view) {
-        mRecording = new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording();
         mRecord = true;
+        mRecording = new Recording();
         btnPause.setVisibility(TextView.INVISIBLE);
         btnPlay.setVisibility(TextView.INVISIBLE);
         btnRecord.setVisibility(TextView.INVISIBLE);
         btnStopRecord.setVisibility(TextView.VISIBLE);
+        btnSave.setVisibility(TextView.INVISIBLE);
         mStart = SystemClock.elapsedRealtime();
     }
 
@@ -452,6 +460,12 @@ public class Drums extends AppCompatActivity {
         btnRecord.setVisibility(TextView.VISIBLE);
         btnStopRecord.setVisibility(TextView.INVISIBLE);
         btnPlay.setVisibility(TextView.VISIBLE);
+        btnSave.setVisibility(TextView.VISIBLE);
+    }
+
+    public void saveRecording(View view) {
+        DialogFragment f = new SaveRecordingDialogFragment();
+        f.show(getSupportFragmentManager(), "saveRecording");
     }
 
     /**
@@ -461,6 +475,14 @@ public class Drums extends AppCompatActivity {
         btnPlay.setVisibility(TextView.INVISIBLE);
         btnPause.setVisibility(TextView.VISIBLE);
         mRecording.playRecording(this);
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnPause.setVisibility(TextView.INVISIBLE);
+                btnPlay.setVisibility(TextView.VISIBLE);
+            }
+        }, mRecording.getTotalTime());
     }
 
     /**
@@ -470,6 +492,8 @@ public class Drums extends AppCompatActivity {
         mRecording.stopRecording();
         btnPause.setVisibility(TextView.INVISIBLE);
         btnPlay.setVisibility(TextView.VISIBLE);
+        //Add save dialogue for recording.
+
     }
 
     /**
@@ -485,7 +509,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.crash));
+            mRecording.addNote(new Note(SystemClock.elapsedRealtime() - mStart, R.raw.crash));
         }
     }
 
@@ -502,7 +526,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom2));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom2));
         }
     }
 
@@ -519,7 +543,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note snareNote = new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.snare);
+            edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note snareNote = new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.snare);
             mRecording.addNote(snareNote);
         }
     }
@@ -537,7 +561,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tomshort));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tomshort));
         }
     }
 
@@ -554,7 +578,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom1));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom1));
         }
     }
 
@@ -571,7 +595,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord) {
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.ride));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.ride));
         }
     }
 
@@ -588,7 +612,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.hihat));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.hihat));
         }
     }
 
@@ -605,7 +629,23 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.kick1));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.kick1));
         }
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, boolean sharing, String recordingName) {
+//        Switch s = (Switch) dialog.findViewById(R.id.share_checkbox);
+        if (sharing) Toast.makeText(this, recordingName, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
+
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
     }
 }

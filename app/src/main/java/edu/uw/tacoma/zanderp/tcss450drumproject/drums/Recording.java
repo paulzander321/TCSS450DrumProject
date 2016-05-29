@@ -1,4 +1,4 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,16 +17,16 @@ public class Recording implements Serializable {
     private ArrayList<Note> mNotes;
 
     /**
-     * True if this recording is being played, false if not.
+     * Length of recording, time until done.
      */
-    private boolean mIsPlaying;
+    private Long mTotalDelay;
 
     /**
      * Creates new recording.
      */
     public Recording() {
         mNotes = new ArrayList<>();
-        mIsPlaying = false;
+        mTotalDelay = Long.valueOf(0);
     }
 
     /**
@@ -35,6 +35,7 @@ public class Recording implements Serializable {
      */
     public void addNote(Note addMe) {
         mNotes.add(addMe);
+        if (addMe.getmTimeFromStart() > mTotalDelay) mTotalDelay = addMe.getmTimeFromStart();
     }
 
     /**
@@ -48,14 +49,21 @@ public class Recording implements Serializable {
     }
 
     /**
-     * Stops current playthrough of recording (Note: currently playing notes will finish playing)
+     * Stops current playback of recording
      */
     public void stopRecording() {
-        mIsPlaying = false;
         for (Note note: mNotes
              ) {
             note.stopPlayback();
         }
+    }
+
+    /**
+     * Returns the total delay for the recording, ie time until done.
+     * @return Time until done.
+     */
+    public Long getTotalTime() {
+        return mTotalDelay;
     }
 
 }

@@ -1,6 +1,7 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.DrumSet;
 
 
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,28 +16,14 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.TextView;
 
-import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note;
-import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording;
+import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note;
+import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DrumSet extends Fragment {
-    private Button snare;
-    private Button tom1;
-    private Button tom2;
-    private Button floortom;
-    private Button bass;
-    private Button crash;
-    private Button ride;
-    private Button hihat;
-    private Button pedal;
-    protected int SNARE_X;
-    protected int SNARE_Y;
-    protected int TOM1_X;
-    protected int TOM1_Y;
-
 
     public DrumSet() {
         // Required empty public constructor
@@ -46,17 +33,7 @@ public class DrumSet extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_drum_set, container, false);
-        snare = (Button)view.findViewById(R.id.snare);
-        tom1 = (Button)view.findViewById(R.id.Tom1);
-        tom2 = (Button)view.findViewById(R.id.Tom2);
-        floortom = (Button)view.findViewById(R.id.floor_tom);
-        bass = (Button)view.findViewById(R.id.bass);
-        crash = (Button)view.findViewById(R.id.crash);
-        ride = (Button)view.findViewById(R.id.ride);
-        hihat = (Button)view.findViewById(R.id.high_hat);
-        pedal = (Button)view.findViewById(R.id.pedal);
-        return view;
+        return inflater.inflate(R.layout.fragment_drum_set, container, false);
     }
 
     @Override
@@ -70,5 +47,10 @@ public class DrumSet extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
 
 }

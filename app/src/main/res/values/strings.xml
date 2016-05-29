@@ -15,4 +15,10 @@
     <string name="logout_string">Log Out</string>
     <string name="play_drums_button_text">Play Drums</string>
     <string name="view_users_button_text">View Users</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_confirm">Save</string>
+    <string name="recording_name_hint">Recording name</string>
+    <string name="recording_share_button">Share</string>
+    <string name="play_drums">Play Drums</string>
+    <string name="cusomize_drums">Customize</string>
 </resources>

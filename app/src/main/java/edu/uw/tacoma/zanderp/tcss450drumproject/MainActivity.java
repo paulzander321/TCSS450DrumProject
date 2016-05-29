@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
-import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Drums;
+import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Drums;
 
 /**
  * The main menu activity of the app. Redirects to drum playing screen. Gives menu option to
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     /**
      * Starts the drum play activity.
      * @param view the view
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         custom.putExtra("custom",true);
         startActivity(custom);
     }
+
 //    public void viewUsers(View view) {
 //        Intent viewUsers = new Intent(this, )
 //    }

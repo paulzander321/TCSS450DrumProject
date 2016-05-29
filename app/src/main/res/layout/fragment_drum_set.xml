@@ -113,8 +113,19 @@
         android:layout_y="416dp"
         android:background="@drawable/stopbutton"
         android:onClick="stopRecording"
-        android:clickable="false"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:clickable="false"/>
+
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/savebutton"
+        android:layout_x="80dp"
+        android:layout_y="416dp"
+        android:background="@drawable/savebutton"
+        android:onClick="saveRecording"
+        android:visibility="invisible"
+        android:clickable="false"/>
 
     <Button
         android:layout_width="60dp"
