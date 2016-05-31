@@ -1,20 +1,16 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.data;
 
-import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +19,8 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note;
 import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
 
 /**
- * Created by paulz on 5/29/2016.
+ * A class used to save recording from the database as well as to retrieve them. Uses
+ * SQLiteOpenHelper for opening and initializing the database.
  */
 public class RecordingDB {
 
@@ -43,10 +40,21 @@ public class RecordingDB {
         mSQLiteDatabase = mRecordingDBHelper.getWritableDatabase();
     }
 
+    /**
+     * Closes the database.
+     */
     public void closeDB() {
         mSQLiteDatabase.close();
     }
 
+    /**
+     * Saves a new recording to the database.
+     * @param recordingName name of recording
+     * @param creator name of creater
+     * @param shared true if shared, false if private
+     * @param recording the recording itself
+     * @return true if save was successful, false if failed
+     */
     public boolean insertRecording(String recordingName, String creator, boolean shared, Recording recording) {
         DateFormat s = SimpleDateFormat.getDateTimeInstance();
         ContentValues contentValues = new ContentValues();
@@ -72,9 +80,14 @@ public class RecordingDB {
         return recordingID != -1;
     }
 
-    public List<Recording> getMyRecordings() {
+    /**
+     * Retrieves all the recordings of the current user.
+     * @param recordingCreator user's username
+     * @return list of recordingCreator's saved recordings.
+     */
+    public List<Recording> getMyRecordings(String recordingCreator) {
         List<Recording> toReturn = new ArrayList<>();
-        String selectAll = "SELECT * FROM Recording";
+        String selectAll = "SELECT * FROM Recording WHERE creator = '" + recordingCreator + "'";
         Cursor c = mSQLiteDatabase.rawQuery(selectAll, null);
         if (c != null) {
             Log.d(TAG, "getMyRecordings: first cursor isn't null");
@@ -93,6 +106,7 @@ public class RecordingDB {
                     e.printStackTrace();
                 }
                 Recording current = new Recording(currentName, currentCreator, date, currentIsShared != 0);
+                current.setmLocalID((int) recordingID);
                 String selectNotes = "SELECT * FROM Notes JOIN RecordingNotes ON Notes.id = RecordingNotes.note_id WHERE recording_id = " + recordingID;
                 Cursor c2 = mSQLiteDatabase.rawQuery(selectNotes, null);
                 if (c2 != null) {
@@ -109,14 +123,15 @@ public class RecordingDB {
         return toReturn;
     }
 
-    class RecordingDBHelper extends SQLiteOpenHelper {
+    public void deleteRecording(int recordingID) {
+        //TODO
+    }
 
-//        private static final String TABLE_RECORDING = "";
-//        private static final String TABLE_NOTES = "";
-//        private static final String TABLE_RECORDING_NOTES = "";
-//
-//        private static final String KEY_ID = "";
-//        private static final String KEY_CREATED_AT = "";
+    public void updateRecording(Recording toUpdate) {
+        //TODO
+    }
+
+    class RecordingDBHelper extends SQLiteOpenHelper {
 
         private final String CREATE_RECORDING_SQL;
         private final String DROP_RECORDING_SQL;

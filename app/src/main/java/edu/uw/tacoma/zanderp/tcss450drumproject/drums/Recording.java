@@ -36,6 +36,8 @@ public class Recording implements Serializable {
     /** True if this recording is shared with community. */
     private boolean mIsShared;
 
+    private int mLocalID;
+
     /**
      * Creates new recording with no values for name, creatorName, or creationTime.
      */
@@ -80,7 +82,7 @@ public class Recording implements Serializable {
     /**
      * Stops current playback of recording
      */
-    public void stopRecording() {
+    public void stopPlayback() {
         for (Note note: mNotes
              ) {
             note.stopPlayback();
@@ -121,5 +123,7 @@ public class Recording implements Serializable {
     public boolean ismIsShared() {
         return mIsShared;
     }
+
+    public void setmLocalID(int id) { mLocalID = id; }
 
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
@@ -469,7 +470,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         btnRecord.setVisibility(TextView.VISIBLE);
         btnStopRecord.setVisibility(TextView.INVISIBLE);
         btnPlay.setVisibility(TextView.VISIBLE);
-        btnSave.setVisibility(TextView.VISIBLE);
+        if (!mRecording.getmNotes().isEmpty()) btnSave.setVisibility(TextView.VISIBLE);
     }
 
     /**
@@ -502,11 +503,9 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
      * Stops the currently playing recording.
      */
     public void stopPlaying(View view){
-        mRecording.stopRecording();
+        mRecording.stopPlayback();
         btnPause.setVisibility(TextView.INVISIBLE);
         btnPlay.setVisibility(TextView.VISIBLE);
-        //Add save dialogue for recording.
-
     }
 
     /**
@@ -651,7 +650,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         if (recordingName.isEmpty()) {
             Toast.makeText(this, "Recording not saved! Please give your recording a name", Toast.LENGTH_LONG).show();
         } else if (mRecording.getmNotes().isEmpty()) {
-            Toast.makeText(this, "Recording not saved! Recording must have at least one note", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Recording not saved! The recording is empty!", Toast.LENGTH_LONG).show();
         } else {
             RecordingDB db = new RecordingDB(getApplicationContext());
             SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
@@ -659,6 +658,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
             db.closeDB();
             if (sharing) {
                 //TODO Save to database on server.
+
             }
             Toast.makeText(this, recordingName + " was successfully saved!", Toast.LENGTH_LONG).show();
         }
@@ -694,5 +694,20 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class SaveRecordingExternalTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            //TODO
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //TODO
+        }
+
     }
 }

@@ -20,8 +20,15 @@
     <string name="save_confirm">Save</string>
     <string name="recording_name_hint">Recording name</string>
     <string name="recording_share_button">Share</string>
+    <string name="recording_shared">Shared</string>
+    <string name="recording_private">Private</string>
     <string name="play_drums">Play Drums</string>
     <string name="cusomize_drums">Customize</string>
     <string name="customize_drumset">Customize Drumset</string>
     <string name="view_recordings">View My Recordings</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="play_recording">Play Recording</string>
+    <string name="explore_community">Community Creations</string>
+    <string name="help_button">Documentation</string>
+    <string name="delete_recording">Delete</string>
 </resources>

@@ -11,24 +11,16 @@
         android:layout_height="match_parent"
         android:textSize="20sp"
         android:padding="10dp"
+        android:layout_margin="10dp"
         android:hint="@string/recording_name_hint" />
 
-    <LinearLayout
-        android:padding="10dp"
+    <ToggleButton
+        android:id="@+id/share_checkbox"
+        android:textOn="@string/recording_shared"
+        android:textOff="@string/recording_private"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="@string/recording_share_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="20sp"/>
-
-        <ToggleButton
-            android:id="@+id/share_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.uw.tacoma.zanderp.tcss450drumproject.view.RecordingDetailFragment">
+
+    <TextView
+        android:id="@+id/recording_detail_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@string/hello_blank_fragment"/>
+
+    <TextView
+        android:id="@+id/recording_detail_creator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/hello_blank_fragment"/>
+
+    <TextView
+        android:id="@+id/recording_detail_time_created"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"/>
+
+    <TextView
+        android:id="@+id/recording_detail_total_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"/>
+
+    <ToggleButton
+        android:id="@+id/recording_detail_shared"
+        android:layout_gravity="center"
+        android:textOff="@string/recording_private"
+        android:textOn="@string/recording_shared"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:longClickable="false">
+        <Button
+            android:text="@string/save_changes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/play_recording"
+            android:text="@string/play_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/delete_recording"
+        android:text="@string/delete_recording"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

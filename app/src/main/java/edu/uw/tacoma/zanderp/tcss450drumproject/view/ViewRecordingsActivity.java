@@ -3,6 +3,7 @@ package edu.uw.tacoma.zanderp.tcss450drumproject.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +16,11 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
 import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
 
-public class ViewRecordingsActivity extends AppCompatActivity implements RecordingListFragment.OnListFragmentInteractionListener {
+public class ViewRecordingsActivity extends AppCompatActivity implements RecordingListFragment.OnListFragmentInteractionListener,
+                                    RecordingDetailFragment.OnFragmentInteractionListener {
 
     private boolean mIsPlaying;
+    private Recording mCurrentRecording;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +37,15 @@ public class ViewRecordingsActivity extends AppCompatActivity implements Recordi
 
     @Override
     public void onListFragmentInteraction(Recording item) {
-        //TODO Create new RecordingDetailFragment and start it.
-        if (!mIsPlaying) {
-            mIsPlaying = true;
-            item.playRecording(this);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mIsPlaying = false;
-                }
-            }, item.getTotalTime());
-        }
+        RecordingDetailFragment recordingDetailFragment = new RecordingDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(RecordingDetailFragment.RECORDING_SELECTED, item);
+        recordingDetailFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, recordingDetailFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -57,7 +57,6 @@ public class ViewRecordingsActivity extends AppCompatActivity implements Recordi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.logout) {
             SharedPreferences sharedPreferences =
                     getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
@@ -71,8 +70,22 @@ public class ViewRecordingsActivity extends AppCompatActivity implements Recordi
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Recording recording) {
+        if (!mIsPlaying) {
+            mIsPlaying = true;
+            mCurrentRecording = recording;
+            mCurrentRecording.playRecording(this);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mIsPlaying = false;
+                }
+            }, recording.getTotalTime());
+        }
+    }
 }

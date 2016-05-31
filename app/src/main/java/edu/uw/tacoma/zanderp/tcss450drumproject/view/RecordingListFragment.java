@@ -1,6 +1,7 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -17,7 +18,6 @@ import android.widget.Toast;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
 import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
-import edu.uw.tacoma.zanderp.tcss450drumproject.view.MyRecordingRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,9 @@ public class RecordingListFragment extends Fragment {
         }
         if (mRecordingList == null) {
             Log.d(TAG, "onCreateView: recording list initialized");
-            mRecordingList = mRecordingDB.getMyRecordings();
+            SharedPreferences sharedPreferences = getActivity()
+                    .getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+            mRecordingList = mRecordingDB.getMyRecordings(sharedPreferences.getString(getString(R.string.USERNAME), ""));
         }
         if (mRecordingList.isEmpty()) {
             Toast.makeText(getActivity(), "You currently have no recordings!", Toast.LENGTH_LONG).show();
