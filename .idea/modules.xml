@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< Updated upstream
       <module fileurl="file://$PROJECT_DIR$/TCSS450DrumProject2.iml" filepath="$PROJECT_DIR$/TCSS450DrumProject2.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/TCSS450DrumProject.iml" filepath="$PROJECT_DIR$/TCSS450DrumProject.iml" />
+>>>>>>> Stashed changes
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

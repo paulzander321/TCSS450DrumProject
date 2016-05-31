@@ -27,4 +27,22 @@
         android:onClick="setBtnCustom"
         android:id="@+id/customize"/>
 
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Add Drum"
+        android:id="@+id/add_drum"
+        android:layout_x="3dp"
+        android:layout_y="463dp"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Delete Drum"
+        android:id="@+id/delete_drum"
+        android:layout_x="191dp"
+        android:layout_y="463dp"
+        android:visibility="invisible"/>
+
 </AbsoluteLayout>
