@@ -1,8 +1,6 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.support.v7.app.AppCompatActivity;
-
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;

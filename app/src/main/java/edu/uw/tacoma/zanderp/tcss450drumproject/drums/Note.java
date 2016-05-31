@@ -1,11 +1,9 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-
-import java.io.Serializable;
 
 /**
  * The Note class contains information regarding which instrument the note
