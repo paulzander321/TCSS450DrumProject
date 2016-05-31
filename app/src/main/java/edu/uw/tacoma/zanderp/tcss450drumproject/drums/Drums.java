@@ -1,4 +1,4 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,12 +14,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import edu.uw.tacoma.zanderp.tcss450drumproject.MainActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
 /**
@@ -332,6 +330,12 @@ public class Drums extends AppCompatActivity {
         if(custom) {
             btnCustom.setText("Play Drums");
             btnAdd.setVisibility(View.VISIBLE);
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addDrum(buttonSelected);
+                }
+            });
             btnRecord.setEnabled(false);
             btnRecord.setVisibility(View.INVISIBLE);
             snare.setOnClickListener(new View.OnClickListener() {
@@ -453,6 +457,8 @@ public class Drums extends AppCompatActivity {
             });
         }else if(!custom){
             btnCustom.setText("Customize");
+            btnAdd.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
             selected.setVisibility(View.INVISIBLE);
             btnRecord.setEnabled(true);
             btnRecord.setVisibility(View.VISIBLE);
@@ -639,7 +645,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom2));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom2));
         }
     }
 
@@ -674,7 +680,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tomshort));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tomshort));
         }
     }
 
@@ -691,7 +697,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom1));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom1));
         }
     }
 
@@ -708,7 +714,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord) {
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.ride));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.ride));
         }
     }
 
