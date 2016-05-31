@@ -1,10 +1,10 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +13,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
+import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
 
 /**
  * The Drums displays the drum play screen to the user and allows them to play different
@@ -463,6 +468,10 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         btnSave.setVisibility(TextView.VISIBLE);
     }
 
+    /**
+     * Opens up dialog to save current recording. Gives option to share with
+     * app community.
+     */
     public void saveRecording(View view) {
         DialogFragment f = new SaveRecordingDialogFragment();
         f.show(getSupportFragmentManager(), "saveRecording");
@@ -635,17 +644,21 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, boolean sharing, String recordingName) {
-//        Switch s = (Switch) dialog.findViewById(R.id.share_checkbox);
-        if (sharing) Toast.makeText(this, recordingName, Toast.LENGTH_LONG).show();
+        if (recordingName.isEmpty()) {
+            Toast.makeText(this, "Recording not saved! Please give your recording a name", Toast.LENGTH_LONG).show();
+        } else if (mRecording.getmNotes().isEmpty()) {
+            Toast.makeText(this, "Recording not saved! Recording must have at least one note", Toast.LENGTH_LONG).show();
+        } else {
+            RecordingDB db = new RecordingDB(getApplicationContext());
+            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+            db.insertRecording(recordingName, sharedPreferences.getString(getString(R.string.USERNAME), "0"), sharing, mRecording);
+            db.closeDB();
+            if (sharing) Toast.makeText(this, recordingName + " was successfully saved!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
-    }
-
-    public void onCheckboxClicked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-
     }
 }

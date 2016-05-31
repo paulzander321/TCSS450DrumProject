@@ -9,6 +9,7 @@
     <string name="LOGIN_FILE"> edu.uw.tacoma.mmuppa.webservicelab.LOGIN_FILE</string>
     <string name="LOGIN_PREFS">edu.uw.tacoma.mmuppa.webservicelab.PREFS</string>
     <string name="LOGGEDIN">loggedin</string>
+    <string name="USERNAME">username</string>
     <string name="facebook_app_id">512888188911964</string>
     <string name="register_button">Register</string>
     <string name="enter_username_hint">Enter username (not required for signin)</string>
@@ -21,4 +22,6 @@
     <string name="recording_share_button">Share</string>
     <string name="play_drums">Play Drums</string>
     <string name="cusomize_drums">Customize</string>
+    <string name="customize_drumset">Customize Drumset</string>
+    <string name="view_recordings">View My Recordings</string>
 </resources>

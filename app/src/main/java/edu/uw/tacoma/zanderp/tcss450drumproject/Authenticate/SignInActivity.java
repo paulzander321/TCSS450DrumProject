@@ -143,10 +143,11 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
                     mSharedPreferences
                             .edit()
                             .putBoolean(getString(R.string.LOGGEDIN), true)
+                            .putString(getString(R.string.USERNAME), reader.getString("username"))
                             .apply();
                     Intent i = new Intent(that, MainActivity.class);
                     startActivity(i);
-                    Toast.makeText(that, "Logged in successfully!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(that, mSharedPreferences.getString(getString(R.string.USERNAME), "Anonymous") + " logged in successfully!", Toast.LENGTH_LONG).show();
                     finish();
                 } else {
                     Toast.makeText(that, reader.getString("error"), Toast.LENGTH_LONG).show();

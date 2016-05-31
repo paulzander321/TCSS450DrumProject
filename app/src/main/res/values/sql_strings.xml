@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="CREATE_RECORDING_SQL">
+        CREATE TABLE IF NOT EXISTS Recording(
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            creator TEXT,
+            shared BOOLEAN,
+            total_time INT,
+            time_created DATETIME
+        )
+    </string>
+
+    <string name="CREATE_NOTES_SQL">
+        CREATE TABLE IF NOT EXISTS Notes(
+            id INTEGER PRIMARY KEY,
+            instrument_id INTEGER,
+            delay_time INTEGER
+        )
+    </string>
+
+    <string name="CREATE_RECORDING_NOTES_SQL">
+        CREATE TABLE IF NOT EXISTS RecordingNotes(
+            id INTEGER PRIMARY KEY,
+            recording_id TEXT,
+            note_id TEXT,
+            FOREIGN KEY (recording_id) REFERENCES Recording(id),
+            FOREIGN KEY (note_id) REFERENCES Notes(id)
+        )
+    </string>
+
+    <string name="DROP_RECORDING_SQL">
+        DROP TABLE IF EXISTS Recording
+    </string>
+
+    <string name="DROP_NOTES_SQL">
+        DROP TABLE IF EXISTS Notes
+    </string>
+
+    <string name="DROP_RECORDING_NOTES_SQL">
+        DROP TABLE IF EXISTS RecordingNotes
+    </string>
+
+</resources>

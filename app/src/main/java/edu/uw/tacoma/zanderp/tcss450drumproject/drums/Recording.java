@@ -2,14 +2,17 @@ package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The Recording class contains a series of notes that are able
  * to be played.
  */
-public class Recording implements Serializable {
+public class Recording {
 
     /**
      * The series of notes for this recording.
@@ -21,10 +24,32 @@ public class Recording implements Serializable {
      */
     private Long mTotalDelay;
 
+    /** Name of this recording. */
+    private String mName;
+
+    /** Username of this recording's creator. */
+    private String mCreator;
+
+    /** Date this recording was saved. */
+    private Date mCreationTime;
+
     /**
-     * Creates new recording.
+     * Creates new recording with no values for name, creatorName, or creationTime.
      */
     public Recording() {
+        this(null, null, null);
+    }
+
+    /**
+     * Creates new Recording with given values.
+     * @param name name of recording.
+     * @param creatorName username of recording's creator.
+     * @param creationTime time this recording was created.
+     */
+    public Recording(String name, String creatorName, Date creationTime) {
+        mName = name;
+        mCreator = creatorName;
+        mCreationTime = creationTime;
         mNotes = new ArrayList<>();
         mTotalDelay = Long.valueOf(0);
     }
@@ -64,6 +89,28 @@ public class Recording implements Serializable {
      */
     public Long getTotalTime() {
         return mTotalDelay;
+    }
+
+    /**
+     * Getter for mNotes.
+     */
+    public ArrayList<Note> getmNotes() {
+        return mNotes;
+    }
+
+    /** Gets name. */
+    public String getmName() {
+        return mName;
+    }
+
+    /** Gets creator. */
+    public String getmCreator() {
+        return mCreator;
+    }
+
+    /** Gets creation time. */
+    public Date getmCreationTime() {
+        return mCreationTime;
     }
 
 }

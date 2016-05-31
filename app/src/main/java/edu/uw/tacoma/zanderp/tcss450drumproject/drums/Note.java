@@ -12,7 +12,7 @@ import java.io.Serializable;
  * should play as well as the time it was played relative to the beginning of
  * recording.
  */
-public class Note implements Serializable, Comparable<Note> {
+public class Note implements Comparable<Note> {
 
     /**
      * The time from the start of recording.
@@ -77,5 +77,10 @@ public class Note implements Serializable, Comparable<Note> {
      */
     public void stopPlayback() {
         mHandler.removeCallbacksAndMessages(null);
+    }
+
+    /** Gets the resource id representing the instrument for this note. */
+    public int getmResourceID() {
+        return mResourceID;
     }
 }

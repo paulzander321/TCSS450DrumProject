@@ -10,10 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
