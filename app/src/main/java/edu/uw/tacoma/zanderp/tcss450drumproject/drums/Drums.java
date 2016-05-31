@@ -1,11 +1,14 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.SystemClock;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,17 +17,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.uw.tacoma.zanderp.tcss450drumproject.MainActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
+import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
 
 /**
  * The Drums displays the drum play screen to the user and allows them to play different
  * drums as well as record and listen to their recording.
  */
-public class Drums extends AppCompatActivity {
+public class Drums extends AppCompatActivity implements SaveRecordingDialogFragment.SaveRecordingDialogListener {
     private TextView selected;
     private Button snare;
     private Button tom1;
@@ -41,6 +47,7 @@ public class Drums extends AppCompatActivity {
     private Button btnPause;
     private Button btnAdd;
     private Button btnDelete;
+    private Button btnSave;
     private Boolean mRecord;
     private Recording mRecording;
     private Long mStart;
@@ -90,6 +97,7 @@ public class Drums extends AppCompatActivity {
         tom1 = (Button)findViewById(R.id.Tom1);
         tom2 = (Button)findViewById(R.id.Tom2);
         floortom = (Button)findViewById(R.id.floor_tom);
+        btnSave = (Button) findViewById(R.id.savebutton);
         bass = (Button)findViewById(R.id.bass);
         crash = (Button)findViewById(R.id.crash);
         ride = (Button)findViewById(R.id.ride);
@@ -330,12 +338,6 @@ public class Drums extends AppCompatActivity {
         if(custom) {
             btnCustom.setText("Play Drums");
             btnAdd.setVisibility(View.VISIBLE);
-            btnAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addDrum(buttonSelected);
-                }
-            });
             btnRecord.setEnabled(false);
             btnRecord.setVisibility(View.INVISIBLE);
             snare.setOnClickListener(new View.OnClickListener() {
@@ -457,8 +459,6 @@ public class Drums extends AppCompatActivity {
             });
         }else if(!custom){
             btnCustom.setText("Customize");
-            btnAdd.setVisibility(View.GONE);
-            btnDelete.setVisibility(View.GONE);
             selected.setVisibility(View.INVISIBLE);
             btnRecord.setEnabled(true);
             btnRecord.setVisibility(View.VISIBLE);
@@ -572,7 +572,6 @@ public class Drums extends AppCompatActivity {
         setButtons();
     }
 
-
     /**
      * Starts the recording of notes being played. If there is currently
      * a recording, will destroy it and start with black recording.
@@ -584,6 +583,7 @@ public class Drums extends AppCompatActivity {
         btnPlay.setVisibility(TextView.INVISIBLE);
         btnRecord.setVisibility(TextView.INVISIBLE);
         btnStopRecord.setVisibility(TextView.VISIBLE);
+        btnSave.setVisibility(TextView.INVISIBLE);
         mStart = SystemClock.elapsedRealtime();
     }
 
@@ -594,7 +594,17 @@ public class Drums extends AppCompatActivity {
         mRecord = false;
         btnRecord.setVisibility(TextView.VISIBLE);
         btnStopRecord.setVisibility(TextView.INVISIBLE);
+        if (!mRecording.getmNotes().isEmpty()) btnSave.setVisibility(TextView.VISIBLE);
         btnPlay.setVisibility(TextView.VISIBLE);
+    }
+
+    /**
+     * Opens up dialog to save current recording. Gives option to share with
+     * app community.
+     */
+    public void saveRecording(View view) {
+        DialogFragment f = new SaveRecordingDialogFragment();
+        f.show(getSupportFragmentManager(), "saveRecording");
     }
 
     /**
@@ -645,7 +655,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom2));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom2));
         }
     }
 
@@ -680,7 +690,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tomshort));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tomshort));
         }
     }
 
@@ -697,7 +707,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord){
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom1));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.tom1));
         }
     }
 
@@ -714,7 +724,7 @@ public class Drums extends AppCompatActivity {
             }
         });
         if (mRecord) {
-            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.ride));
+            mRecording.addNote(new edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note(SystemClock.elapsedRealtime() - mStart, R.raw.ride));
         }
     }
 
@@ -750,5 +760,44 @@ public class Drums extends AppCompatActivity {
         if (mRecord){
             mRecording.addNote(new Note(SystemClock.elapsedRealtime() - mStart, R.raw.kick1));
         }
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, boolean sharing, String recordingName) {
+        if (recordingName.isEmpty()) {
+            Toast.makeText(this, "Recording not saved! Please give your recording a name", Toast.LENGTH_LONG).show();
+        } else if (mRecording.getmNotes().isEmpty()) {
+            Toast.makeText(this, "Recording not saved! The recording is empty!", Toast.LENGTH_LONG).show();
+        } else {
+            RecordingDB db = new RecordingDB(getApplicationContext());
+            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+            db.insertRecording(recordingName, sharedPreferences.getString(getString(R.string.USERNAME), "0"), sharing, mRecording);
+            db.closeDB();
+            if (sharing) {
+                //TODO Save to database on server.
+
+            }
+            Toast.makeText(this, recordingName + " was successfully saved!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
+
+    private class SaveRecordingExternalTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            //TODO
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //TODO
+        }
+
     }
 }
