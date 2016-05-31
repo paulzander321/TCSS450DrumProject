@@ -1,6 +1,7 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -9,6 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsoluteLayout;
@@ -22,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
 
@@ -653,12 +657,42 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
             SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
             db.insertRecording(recordingName, sharedPreferences.getString(getString(R.string.USERNAME), "0"), sharing, mRecording);
             db.closeDB();
-            if (sharing) Toast.makeText(this, recordingName + " was successfully saved!", Toast.LENGTH_LONG).show();
+            if (sharing) {
+                //TODO Save to database on server.
+            }
+            Toast.makeText(this, recordingName + " was successfully saved!", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.logout) {
+            SharedPreferences sharedPreferences =
+                    getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+            sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
+                    .apply();
+            Intent i = new Intent(this, SignInActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            Toast.makeText(this,"Logout Successful!", Toast.LENGTH_LONG)
+                    .show();
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

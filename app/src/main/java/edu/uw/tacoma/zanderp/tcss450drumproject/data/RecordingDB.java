@@ -7,13 +7,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note;
@@ -26,6 +29,7 @@ public class RecordingDB {
 
     public static final int DB_VERSION = 1;
     public static final String DB_NAME = "MyRecordings.db";
+    private static final String TAG = "RECORDING_DB";
 
     private RecordingDBHelper mRecordingDBHelper;
     private SQLiteDatabase mSQLiteDatabase;
@@ -68,35 +72,41 @@ public class RecordingDB {
         return recordingID != -1;
     }
 
-    public String getMyRecordings(AppCompatActivity application) {
-        Recording toReturn = new Recording();
-        String name = "";
+    public List<Recording> getMyRecordings() {
+        List<Recording> toReturn = new ArrayList<>();
         String selectAll = "SELECT * FROM Recording";
         Cursor c = mSQLiteDatabase.rawQuery(selectAll, null);
         if (c != null) {
-            c.moveToLast();
-            long recordingID = c.getInt(c.getColumnIndex("id"));
-            name += "Name: " + c.getString(c.getColumnIndex("name"));
-            name += "\nID: " + c.getInt(c.getColumnIndex("id"));
-            name += "\nShared: " + c.getInt(c.getColumnIndex("shared"));
-            name += "\nTotal Time: " + c.getInt(c.getColumnIndex("total_time"));
-            name += "\nTime Created: " + c.getString(c.getColumnIndex("time_created"));
-            c.close();
-            String selectNotes = "SELECT * FROM Notes JOIN RecordingNotes ON Notes.id = RecordingNotes.note_id WHERE recording_id = " + recordingID;
-            Cursor c2 = mSQLiteDatabase.rawQuery(selectNotes, null);
-            int noteCount = 0;
-            if (c2 != null) {
-                while (c2.moveToNext()) {
-                    Note n = new Note(Long.valueOf(c2.getInt(c2.getColumnIndex("delay_time"))), c2.getInt(c2.getColumnIndex("instrument_id")));
-                    toReturn.addNote(n);
-                    noteCount++;
+            Log.d(TAG, "getMyRecordings: first cursor isn't null");
+            while (c.moveToNext()) {
+                Log.d(TAG, "getMyRecordings: Looking at a row");
+                long recordingID = c.getInt(c.getColumnIndex("id"));
+                String currentName = c.getString(c.getColumnIndex("name"));
+                String currentCreator = c.getString(c.getColumnIndex("creator"));
+                int currentIsShared = c.getInt(c.getColumnIndex("shared"));
+                String currentTimeCreated = c.getString(c.getColumnIndex("time_created"));
+                DateFormat format = SimpleDateFormat.getDateTimeInstance();
+                Date date = new Date();
+                try {
+                    date = format.parse(currentTimeCreated);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                c2.close();
+                Recording current = new Recording(currentName, currentCreator, date, currentIsShared != 0);
+                String selectNotes = "SELECT * FROM Notes JOIN RecordingNotes ON Notes.id = RecordingNotes.note_id WHERE recording_id = " + recordingID;
+                Cursor c2 = mSQLiteDatabase.rawQuery(selectNotes, null);
+                if (c2 != null) {
+                    while (c2.moveToNext()) {
+                        Note n = new Note(Long.valueOf(c2.getInt(c2.getColumnIndex("delay_time"))), c2.getInt(c2.getColumnIndex("instrument_id")));
+                        current.addNote(n);
+                    }
+                    c2.close();
+                }
+                toReturn.add(current);
             }
-            name += "\nNote Count: " + noteCount;
-            toReturn.playRecording(application);
+            c.close();
         }
-        return name;
+        return toReturn;
     }
 
     class RecordingDBHelper extends SQLiteOpenHelper {

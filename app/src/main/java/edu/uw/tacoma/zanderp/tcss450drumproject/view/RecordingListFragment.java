@@ -1,16 +1,21 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.view;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
+import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
 import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
 import edu.uw.tacoma.zanderp.tcss450drumproject.view.MyRecordingRecyclerViewAdapter;
 
@@ -28,6 +33,9 @@ public class RecordingListFragment extends Fragment {
     private int mColumnCount = 1;
     private RecyclerView mRecyclerView;
     private List<Recording> mRecordingList;
+    private RecordingDB mRecordingDB;
+    private static final String RECORDINGS_URL = "http://cssgate.insttech.washington.edu/~zanderp/blah.php";
+    private static final String TAG = "RECORDING_LIST_FRAGMENT";
 
     private OnListFragmentInteractionListener mListener;
 
@@ -60,8 +68,32 @@ public class RecordingListFragment extends Fragment {
             }
         }
 
-        mRecordingList = new ArrayList<>();
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            //TODO Get the recordings from the database which are either mine or are set to be shared.
+//            DownloadCoursesTask task = new DownloadCoursesTask();
+//            task.execute(new String[]{RECORDINGS_URL});
+        }
+        else {
+            Toast.makeText(view.getContext(),
+                    "No network connection available. Cannot display courses",
+                    Toast.LENGTH_SHORT) .show();
+        }
 
+        if (mRecordingDB == null) {
+            Log.d(TAG, "onCreateView: recording database initialized");
+            mRecordingDB = new RecordingDB(getActivity());
+        }
+        if (mRecordingList == null) {
+            Log.d(TAG, "onCreateView: recording list initialized");
+            mRecordingList = mRecordingDB.getMyRecordings();
+        }
+        if (mRecordingList.isEmpty()) {
+            Toast.makeText(getActivity(), "You currently have no recordings!", Toast.LENGTH_LONG).show();
+        }
+        Log.d(TAG, "onCreateView: " + mRecordingList.size());
         mRecyclerView.setAdapter(new MyRecordingRecyclerViewAdapter(mRecordingList, mListener));
         return view;
     }

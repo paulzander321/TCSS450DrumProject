@@ -12,7 +12,7 @@ import java.util.Date;
  * The Recording class contains a series of notes that are able
  * to be played.
  */
-public class Recording {
+public class Recording implements Serializable {
 
     /**
      * The series of notes for this recording.
@@ -33,11 +33,14 @@ public class Recording {
     /** Date this recording was saved. */
     private Date mCreationTime;
 
+    /** True if this recording is shared with community. */
+    private boolean mIsShared;
+
     /**
      * Creates new recording with no values for name, creatorName, or creationTime.
      */
     public Recording() {
-        this(null, null, null);
+        this(null, null, null, false);
     }
 
     /**
@@ -46,10 +49,11 @@ public class Recording {
      * @param creatorName username of recording's creator.
      * @param creationTime time this recording was created.
      */
-    public Recording(String name, String creatorName, Date creationTime) {
+    public Recording(String name, String creatorName, Date creationTime, boolean isShared) {
         mName = name;
         mCreator = creatorName;
         mCreationTime = creationTime;
+        mIsShared = isShared;
         mNotes = new ArrayList<>();
         mTotalDelay = Long.valueOf(0);
     }
@@ -111,6 +115,11 @@ public class Recording {
     /** Gets creation time. */
     public Date getmCreationTime() {
         return mCreationTime;
+    }
+
+    /** Gets whether this recording is shared. */
+    public boolean ismIsShared() {
+        return mIsShared;
     }
 
 }

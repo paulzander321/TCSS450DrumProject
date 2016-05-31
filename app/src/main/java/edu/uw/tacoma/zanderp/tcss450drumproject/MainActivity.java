@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
                     .apply();
             Intent i = new Intent(this, SignInActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             Toast.makeText(this,"Logout Successful!", Toast.LENGTH_LONG)
                     .show();
