@@ -1,4 +1,4 @@
-package edu.uw.tacoma.zanderp.tcss450drumproject.drums;
+package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
 
 
 import android.app.Activity;
