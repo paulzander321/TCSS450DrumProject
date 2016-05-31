@@ -3,7 +3,6 @@ package edu.uw.tacoma.zanderp.tcss450drumproject.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +12,7 @@ import android.widget.Toast;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
-import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording;
 
 public class ViewRecordingsActivity extends AppCompatActivity implements RecordingListFragment.OnListFragmentInteractionListener,
                                     RecordingDetailFragment.OnFragmentInteractionListener {

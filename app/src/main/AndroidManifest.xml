@@ -22,7 +22,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".drums.Drums" />
+        <activity android:name=".Drums.Drums" />
         <activity android:name=".Authenticate.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

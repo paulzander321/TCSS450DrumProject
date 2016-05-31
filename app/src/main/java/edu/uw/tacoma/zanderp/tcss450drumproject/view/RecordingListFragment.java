@@ -17,9 +17,8 @@ import android.widget.Toast;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 import edu.uw.tacoma.zanderp.tcss450drumproject.data.RecordingDB;
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

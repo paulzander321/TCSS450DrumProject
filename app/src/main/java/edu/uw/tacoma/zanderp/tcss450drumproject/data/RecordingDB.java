@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note;
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording;
 
 /**
  * A class used to save recording from the database as well as to retrieve them. Uses

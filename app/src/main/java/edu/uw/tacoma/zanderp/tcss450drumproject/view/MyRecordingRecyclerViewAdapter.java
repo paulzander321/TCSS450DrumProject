@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
+import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording;
 
 import java.util.List;
 

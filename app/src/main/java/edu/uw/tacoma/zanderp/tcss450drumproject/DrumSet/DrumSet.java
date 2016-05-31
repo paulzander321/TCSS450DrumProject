@@ -1,23 +1,13 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.DrumSet;
 
 
-import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsoluteLayout;
-import android.widget.Button;
-import android.widget.TextView;
 
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Note;
-import edu.uw.tacoma.zanderp.tcss450drumproject.drums.Recording;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
 /**
