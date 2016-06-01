@@ -200,8 +200,15 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Button");
-        builder.setMessage("Click on Drum you want to add");
+        builder.setMessage("There are no drums to add");
         builder.setView(subView);
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(Drums.this, "Cancel", Toast.LENGTH_LONG).show();
+            }
+        });
         final AlertDialog alertDialog = builder.create();
 
         imageSnare.setOnClickListener(new View.OnClickListener() {
@@ -276,14 +283,11 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(Drums.this, "Cancel", Toast.LENGTH_LONG).show();
-            }
-        });
 
-        builder.show();
+
+
+
+        alertDialog.show();
     }
 
 
@@ -675,6 +679,11 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     return false;
+                }
+            });
+            bass.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                 }
             });
             bass.setOnTouchListener(new View.OnTouchListener() {
