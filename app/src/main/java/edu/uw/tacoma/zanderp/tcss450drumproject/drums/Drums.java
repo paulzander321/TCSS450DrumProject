@@ -133,29 +133,146 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
     private void openDialog(){
         LayoutInflater inflater = LayoutInflater.from(Drums.this);
         View subView = inflater.inflate(R.layout.add_button_layout, null);
+
         final ImageView imageSnare = (ImageView) subView.findViewById(R.id.image1);
         Drawable drawableSnare = getResources().getDrawable(R.drawable.snare);
         imageSnare.setImageDrawable(drawableSnare);
+
         final ImageView imageTom1 = (ImageView) subView.findViewById(R.id.image2);
-        Drawable drawableTom1 = getResources().getDrawable(R.drawable.snare);
+        Drawable drawableTom1 = getResources().getDrawable(R.drawable.hightom);
         imageTom1.setImageDrawable(drawableTom1);
-        if(!snare.isShown()) {
+
+        final ImageView imageTom2 = (ImageView) subView.findViewById(R.id.image3);
+        Drawable drawableTom2 = getResources().getDrawable(R.drawable.midtom);
+        imageTom2.setImageDrawable(drawableTom2);
+        imageTom2.setVisibility(View.INVISIBLE);
+
+        final ImageView imageFloorTom = (ImageView) subView.findViewById(R.id.image4);
+        Drawable drawableFloorTom = getResources().getDrawable(R.drawable.lowtom);
+        imageFloorTom.setImageDrawable(drawableFloorTom);
+
+        final ImageView imageBass = (ImageView) subView.findViewById(R.id.image5);
+        Drawable drawableBass = getResources().getDrawable(R.drawable.bass);
+        imageBass.setImageDrawable(drawableBass);
+
+        final ImageView imageCrash = (ImageView) subView.findViewById(R.id.image6);
+        Drawable drawableCrash = getResources().getDrawable(R.drawable.crash);
+        imageCrash.setImageDrawable(drawableCrash);
+
+        final ImageView imageHiHat = (ImageView) subView.findViewById(R.id.image7);
+        Drawable drawableHiHat = getResources().getDrawable(R.drawable.highhat);
+        imageHiHat.setImageDrawable(drawableHiHat);
+
+        final ImageView imageRide = (ImageView) subView.findViewById(R.id.image8);
+        Drawable drawableRide = getResources().getDrawable(R.drawable.ride);
+        imageRide.setImageDrawable(drawableRide);
+
+        final ImageView imagePedal = (ImageView) subView.findViewById(R.id.image9);
+        Drawable drawablePedal = getResources().getDrawable(R.drawable.pedal);
+        imagePedal.setImageDrawable(drawablePedal);
+        if(!snare.isEnabled()) {
             imageSnare.setVisibility(View.VISIBLE);
         }
-        if(!tom1.isShown()){
+        if(!tom1.isEnabled()){
             imageTom1.setVisibility(View.VISIBLE);
         }
+        if(!tom2.isEnabled()){
+            imageTom2.setVisibility(View.VISIBLE);
+        }
+        if(!floortom.isEnabled()){
+            imageFloorTom.setVisibility(View.VISIBLE);
+        }
+        if(!bass.isEnabled()){
+            imageBass.setVisibility(View.VISIBLE);
+        }
+        if(!crash.isEnabled()){
+            imageCrash.setVisibility(View.VISIBLE);
+        }
+        if(!hihat.isEnabled()){
+            imageHiHat.setVisibility(View.VISIBLE);
+        }
+        if(!ride.isEnabled()){
+            imageRide.setVisibility(View.VISIBLE);
+        }
+        if(!pedal.isEnabled()){
+            imagePedal.setVisibility(View.VISIBLE);
+        }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Button");
         builder.setMessage("Click on Drum you want to add");
         builder.setView(subView);
-        AlertDialog alertDialog = builder.create();
+        final AlertDialog alertDialog = builder.create();
 
         imageSnare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int buttonid = snare.getId();
+                addDrum(snare.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imageTom1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(tom1.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imageTom2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(tom2.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imageFloorTom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(floortom.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imageBass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(bass.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imageCrash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(crash.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imageHiHat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(hihat.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imageRide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(ride.getId());
+                alertDialog.dismiss();
+            }
+        });
+
+        imagePedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDrum(pedal.getId());
+                alertDialog.dismiss();
             }
         });
 
@@ -462,6 +579,8 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
             selected.setVisibility(View.INVISIBLE);
             btnRecord.setEnabled(true);
             btnRecord.setVisibility(View.VISIBLE);
+            btnAdd.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.INVISIBLE);
             snare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
