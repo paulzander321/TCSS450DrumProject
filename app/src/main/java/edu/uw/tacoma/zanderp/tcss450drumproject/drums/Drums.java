@@ -579,6 +579,8 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
             selected.setVisibility(View.INVISIBLE);
             btnRecord.setEnabled(true);
             btnRecord.setVisibility(View.VISIBLE);
+            btnAdd.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.INVISIBLE);
             snare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
