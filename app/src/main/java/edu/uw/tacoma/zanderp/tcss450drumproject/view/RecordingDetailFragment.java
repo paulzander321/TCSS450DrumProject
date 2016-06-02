@@ -28,7 +28,7 @@ public class RecordingDetailFragment extends Fragment {
     private TextView mRecordingNameTextView;
     private TextView mRecordingCreatorTextView;
     private TextView mRecordingTotalLengthTextView;
-    private ToggleButton mSharedStatusTextView;
+    private TextView mSharedStatusTextView;
     private TextView mTimeCreatedTextView;
     private Button mPlayButton;
 
@@ -57,7 +57,7 @@ public class RecordingDetailFragment extends Fragment {
         mRecordingNameTextView = (TextView) view.findViewById(R.id.recording_detail_name);
         mRecordingCreatorTextView = (TextView) view.findViewById(R.id.recording_detail_creator);
         mRecordingTotalLengthTextView = (TextView) view.findViewById(R.id.recording_detail_total_time);
-        mSharedStatusTextView = (ToggleButton) view.findViewById(R.id.recording_detail_shared);
+        mSharedStatusTextView = (TextView) view.findViewById(R.id.recording_detail_shared);
         mTimeCreatedTextView = (TextView) view.findViewById(R.id.recording_detail_time_created);
         mPlayButton = (Button) view.findViewById(R.id.play_recording);
         mPlayButton.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +88,7 @@ public class RecordingDetailFragment extends Fragment {
         mRecordingNameTextView.setText(recording.getmName());
         mRecordingCreatorTextView.setText(recording.getmCreator());
         mRecordingTotalLengthTextView.setText(recording.getTotalTime().toString());
-        mSharedStatusTextView.setChecked(recording.ismIsShared());
+        mSharedStatusTextView.setText(recording.ismIsShared() ? "Sharing ON" : "Sharing OFF");
         mTimeCreatedTextView.setText(recording.getmCreationTime().toString());
     }
 

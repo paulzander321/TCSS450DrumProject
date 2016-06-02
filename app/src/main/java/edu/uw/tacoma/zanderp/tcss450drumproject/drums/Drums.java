@@ -16,6 +16,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -69,6 +71,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
     private Button btnAdd;
     private Button btnDelete;
     private Button btnSave;
+    private TextView mCountdown;
     private Boolean mRecord;
     private Recording mRecording;
     private Long mStart;
@@ -111,6 +114,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         btnPlay = (Button)findViewById(R.id.play);
         btnPause = (Button)findViewById(R.id.pausebutton);
         btnAdd = (Button)findViewById(R.id.add_drum);
+        mCountdown = (TextView) findViewById(R.id.countdown_timer);
         btnDelete = (Button) findViewById(R.id.delete_drum);
         mRecording = new Recording();
         mStart = SystemClock.elapsedRealtime();
@@ -718,6 +722,23 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
      * a recording, will destroy it and start with black recording.
      */
     public void startRecording(View view) {
+
+        //TODO Add a counter here
+//        mCountdown.setText("3");
+//        mCountdown.setVisibility(View.VISIBLE);
+//        mCountdown.bringToFront();
+//
+//        for (int i = 2; i >= 0; i--) {
+//            final String newTime = "" + i;
+//            final Handler recordingCountdown = new Handler();
+//            recordingCountdown.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mCountdown.setText(newTime);
+//                }
+//            }, (3 - i) * 1000);
+//        }
+
         mRecording = new Recording();
         mRecord = true;
         btnPause.setVisibility(TextView.INVISIBLE);
