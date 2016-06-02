@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void documentation(View view){
+        Intent documentation = new Intent(this, Documentation.class);
+        startActivity(documentation);
+    }
+
     /**
      * Starts the drum play activity.
      * @param view the view

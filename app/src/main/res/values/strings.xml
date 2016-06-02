@@ -32,4 +32,15 @@
     <string name="explore_community">Community Creations</string>
     <string name="help_button">Documentation</string>
     <string name="delete_recording">Delete</string>
+    <string name="help">How to play drums:\n
+    In the main menu press the "PLAY" button and then you can start playing the drums.\n
+    How to record jam session:\n
+    In the "PLAY" section there is a button that says "REC" which records everything that you play from then on.\n
+    How to Customize Drum set:\n
+    There are two ways to customize your drum set. First way is on the main menu you can go to "CUSTOMIZE" and it will let you move, add, or delete drums. Second way is on the "PLAY" section you can press the "CUSTOMIZE" button on the left top corner which will allow you to customize.\n
+    How to listen to your recordings:\n
+    After you finish your recording and save it, you can go back and play it again by going to the main menu and selecting "MY RECORDINGS", there you can select which recording to play.\n
+    How to share your recording:\n
+    When you are done recording and press on the "SAVE" button, after you place a name you can either put it in private or share it with the whole community.\n
+    </string>
 </resources>
