@@ -38,5 +38,6 @@
     <Button
         style="@style/MainScreenButton"
         android:text="@string/help_button"
-        android:id="@+id/help" />
+        android:id="@+id/help"
+        android:onClick="documentation"/>
 </LinearLayout>
