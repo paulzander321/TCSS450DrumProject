@@ -14,6 +14,10 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording;
 
+/**
+ * This activity will display the saved recordings in the app, either all the recordings that are shared and the user's
+ * recordings or just the user's recordings. This is determined on start of this activity.
+ */
 public class ViewRecordingsActivity extends AppCompatActivity implements RecordingListFragment.OnListFragmentInteractionListener,
                                     RecordingDetailFragment.OnFragmentInteractionListener {
 

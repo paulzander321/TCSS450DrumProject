@@ -20,6 +20,11 @@ public class MyRecordingRecyclerViewAdapter extends RecyclerView.Adapter<MyRecor
     private final List<Recording> mValues;
     private final RecordingListFragment.OnListFragmentInteractionListener mListener;
 
+    /**
+     * Creates a recording recycler view adapter with the given parameters.
+     * @param items the items to be recycled.
+     * @param listener the listener.
+     */
     public MyRecordingRecyclerViewAdapter(List<Recording> items, RecordingListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;

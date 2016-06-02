@@ -3,10 +3,14 @@ package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Entity;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +25,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.MainActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
@@ -75,6 +96,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
     private final String CUSTOM = "CUSTOM";
     private final String X_POSITION = "X_POSITION";
     private final String Y_POSITION = "Y_POSITION";
+    public static final String TAG = "Drums";
 
 
     @Override
@@ -733,6 +755,14 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         btnPlay.setVisibility(TextView.INVISIBLE);
         btnPause.setVisibility(TextView.VISIBLE);
         mRecording.playRecording(this);
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnPause.setVisibility(TextView.INVISIBLE);
+                btnPlay.setVisibility(TextView.VISIBLE);
+            }
+        }, mRecording.getTotalTime());
     }
 
     /**
@@ -888,14 +918,33 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         } else if (mRecording.getmNotes().isEmpty()) {
             Toast.makeText(this, "Recording not saved! The recording is empty!", Toast.LENGTH_LONG).show();
         } else {
+            //Save recording to local database.
+            mRecording.setmName(recordingName);
+            mRecording.setmCreator(getSharedPreferences(getString(R.string.LOGIN_PREFS),
+                    Context.MODE_PRIVATE).getString(getString(R.string.USERNAME), "0"));
+            mRecording.setmIsShared(sharing);
+            Date createTime = new Date();
+            mRecording.setmCreationTime(createTime);
             RecordingDB db = new RecordingDB(getApplicationContext());
-            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
-            db.insertRecording(recordingName, sharedPreferences.getString(getString(R.string.USERNAME), "0"), sharing, mRecording);
+            db.insertRecording(mRecording);
             db.closeDB();
-            if (sharing) {
-                //TODO Save to database on server.
 
+            //Try to save to remote if connected to network.
+            ConnectivityManager connMgr = (ConnectivityManager)
+                    getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()) {
+                SaveRecordingExternalTask task = new SaveRecordingExternalTask();
+                String url  = "http://cssgate.insttech.washington.edu/~zanderp/saveRecording.php";
+                task.execute(url);
+                Log.d(TAG, "onDialogPositiveClick: " + mRecording.getRecordingJSON().toString());
             }
+            else {
+                Toast.makeText(this,
+                        "No network connection available. Cannot save to remote.",
+                        Toast.LENGTH_SHORT) .show();
+            }
+
             Toast.makeText(this, recordingName + " was successfully saved!", Toast.LENGTH_LONG).show();
         }
     }
@@ -909,13 +958,71 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
 
         @Override
         protected String doInBackground(String... urls) {
-            //TODO
-            return null;
+            Log.d(TAG, "doInBackground: " + urls[0]);
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            OutputStreamWriter osw;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setRequestProperty("Accept", "application/json");
+                    urlConnection.setChunkedStreamingMode(0);
+                    Log.d(TAG, "doInBackground: After all the initialization of urlConnection.");
+
+                    OutputStream os = new BufferedOutputStream(urlConnection.getOutputStream());
+                    osw = new OutputStreamWriter(os);
+                    Log.d(TAG, "doInBackground: " + mRecording.getRecordingJSON().toString());
+                    osw.write(mRecording.getRecordingJSON().toString());
+                    osw.flush();
+
+                    Log.d(TAG, "doInBackground: After OutputStreamWriter Close.");
+                    BufferedReader buffer;
+                    try {
+                        InputStream content = urlConnection.getInputStream();
+                        buffer = new BufferedReader(new InputStreamReader(content));
+                    } catch (Exception e) {
+                        InputStream content = urlConnection.getErrorStream();
+                        buffer = new BufferedReader(new InputStreamReader(content));
+                        e.printStackTrace();
+                    }
+                    String s;
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response = "Unable to add recording, Reason: "
+                            + e.getMessage();
+                } finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            //TODO
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                String status = (String) jsonObject.get("result");
+                if (status.equals("success")) {
+                    Toast.makeText(getApplicationContext(), "Recording successfully added!",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed to add: " + jsonObject.get("error"),
+                            Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "Error: Failed because " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+            }
+            Log.d(TAG, "onPostExecute: " + result);
         }
 
     }

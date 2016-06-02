@@ -49,20 +49,17 @@ public class RecordingDB {
 
     /**
      * Saves a new recording to the database.
-     * @param recordingName name of recording
-     * @param creator name of creater
-     * @param shared true if shared, false if private
      * @param recording the recording itself
      * @return true if save was successful, false if failed
      */
-    public boolean insertRecording(String recordingName, String creator, boolean shared, Recording recording) {
+    public boolean insertRecording(Recording recording) {
         DateFormat s = SimpleDateFormat.getDateTimeInstance();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", recordingName);
-        contentValues.put("creator", creator);
-        contentValues.put("shared", shared);
+        contentValues.put("name", recording.getmName());
+        contentValues.put("creator", recording.getmCreator());
+        contentValues.put("shared", recording.ismIsShared());
         contentValues.put("total_time", recording.getTotalTime());
-        contentValues.put("time_created", s.format(new Date()));
+        contentValues.put("time_created", s.format(recording.getmCreationTime()));
         long recordingID = mSQLiteDatabase.insert("Recording", null, contentValues);
         if (recordingID != -1) {
             ArrayList<Note> notes = recording.getmNotes();
@@ -121,10 +118,6 @@ public class RecordingDB {
             c.close();
         }
         return toReturn;
-    }
-
-    public void deleteRecording(int recordingID) {
-        //TODO
     }
 
     public void updateRecording(Recording toUpdate) {

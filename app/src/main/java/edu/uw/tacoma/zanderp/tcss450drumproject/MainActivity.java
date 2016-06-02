@@ -9,21 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
-
 
 import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
 import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Drums;
 import edu.uw.tacoma.zanderp.tcss450drumproject.view.ViewRecordingsActivity;
 
 /**
- * The main menu activity of the app. Redirects to drum playing screen. Gives menu option to
- * log out of the application.
+ * The main menu activity of the app. Redirects to drum playing screen, view recording screen, and help screen.
+ * Gives menu option to log out of the application.
  */
 public class MainActivity extends AppCompatActivity {
-    private Button btnPlayDrums;
-    private Button btnCustomize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        btnPlayDrums = (Button)findViewById(R.id.play_drums);
-        btnCustomize = (Button)findViewById(R.id.button2);
     }
 
     @Override
@@ -51,21 +45,37 @@ public class MainActivity extends AppCompatActivity {
         startActivity(drumset);
     }
 
+    /**
+     * Starts the drum play activity in "customize mode".
+     * @param view the view that initialized this method.
+     */
     public void customDrums(View view){
         Intent custom = new Intent(this, Drums.class);
         custom.putExtra("custom",true);
         startActivity(custom);
     }
 
+    /**
+     * Starts the view recordings activity and will show a list of the currently signed in
+     * user's recordings.
+     * @param view the view that initialized this method.
+     */
     public void viewMyRecordings(View view) {
         Intent viewMyRecordings = new Intent(this, ViewRecordingsActivity.class);
-        viewMyRecordings.putExtra("all", false);
+        viewMyRecordings.putExtra("displayAll", false);
         startActivity(viewMyRecordings);
     }
 
-//    public void viewUsers(View view) {
-//        Intent viewUsers = new Intent(this, )
-//    }
+    /**
+     * Starts the view recordings and will show all the user's recordings and all those recordings
+     * from the app community that have been set to sharing.
+     * @param view the view that initialized this method.
+     */
+    public void viewAllRecordings(View view) {
+        Intent viewAllRecordings = new Intent(this, ViewRecordingsActivity.class);
+        viewAllRecordings.putExtra("displayAll", true);
+        startActivity(viewAllRecordings);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

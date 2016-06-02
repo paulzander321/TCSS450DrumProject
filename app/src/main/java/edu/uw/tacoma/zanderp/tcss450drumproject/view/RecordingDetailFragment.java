@@ -80,6 +80,10 @@ public class RecordingDetailFragment extends Fragment {
         }
     }
 
+    /**
+     * Updates the view with the current recording's data.
+     * @param recording the current recording
+     */
     public void updateView(Recording recording) {
         mRecordingNameTextView.setText(recording.getmName());
         mRecordingCreatorTextView.setText(recording.getmCreator());

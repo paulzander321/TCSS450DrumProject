@@ -5,6 +5,9 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * The Note class contains information regarding which instrument the note
  * should play as well as the time it was played relative to the beginning of
@@ -80,5 +83,20 @@ public class Note implements Comparable<Note> {
     /** Gets the resource id representing the instrument for this note. */
     public int getmResourceID() {
         return mResourceID;
+    }
+
+    /**
+     * Returns a JSON Object representing the Note.
+     * @return JSON for note
+     */
+    public JSONObject getNoteJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("instrument_id", mResourceID);
+            jsonObject.put("delay_time", mTimeFromStart);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 }

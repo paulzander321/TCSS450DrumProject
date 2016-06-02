@@ -1,16 +1,27 @@
 package edu.uw.tacoma.zanderp.tcss450drumproject.Drums;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The Recording class contains a series of notes that are able
  * to be played.
  */
 public class Recording implements Serializable {
+
+    private static final String TAG = "Recording";
 
     /**
      * The series of notes for this recording.
@@ -35,6 +46,8 @@ public class Recording implements Serializable {
     private boolean mIsShared;
 
     private int mLocalID;
+
+    private int mID;
 
     /**
      * Creates new recording with no values for name, creatorName, or creationTime.
@@ -123,5 +136,85 @@ public class Recording implements Serializable {
     }
 
     public void setmLocalID(int id) { mLocalID = id; }
+
+    public void setmName(String name) { mName = name; }
+
+    public void setmCreator(String creator) { mCreator = creator; }
+
+    public void setmCreationTime(Date creationTime) { mCreationTime = creationTime; }
+
+    public void setmIsShared(boolean isShared) { mIsShared = isShared; }
+
+    public void setmID(int id) { mID = id; }
+
+    /** Creates and returns a JSON Object that represents this recording, including data for its notes. **/
+    public JSONObject getRecordingJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            DateFormat s = SimpleDateFormat.getDateTimeInstance();
+            jsonObject.put("name", mName);
+            jsonObject.put("creator", mCreator);
+            jsonObject.put("creation_time", s.format(mCreationTime));
+            jsonObject.put("shared", mIsShared);
+            JSONArray notes = new JSONArray();
+            for (int i = 0; i < mNotes.size(); i++) {
+                notes.put(mNotes.get(i).getNoteJSON());
+            }
+            jsonObject.put("notes", notes);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+    /**
+     * Parses the json string, returns an error message if unsuccessful.
+     * Returns recording list if success.
+     * @param recordingJSON the array of objects representing notes for recordings.
+     * @return reason or null if successful.
+     */
+    public static String parseCourseJSON(String recordingJSON, List<Recording> recordingList) {
+        String reason = null;
+        Log.d(TAG, "parseCourseJSON: " + recordingJSON);
+        if (recordingJSON != null) {
+            try {
+                JSONArray arr = new JSONArray(recordingJSON);
+                int i = 0;
+                Log.d(TAG, "parseCourseJSON: json array size is " + arr.length());
+                while(i < arr.length() - 1) {
+                    Log.d(TAG, "parseCourseJSON: First while loop: i = " + i);
+                    JSONObject obj = arr.getJSONObject(i);
+                    int recordingID = obj.getInt("recording_id");
+                    String name = obj.getString("name");
+                    String creator = obj.getString("creator");
+                    DateFormat format = SimpleDateFormat.getDateTimeInstance();
+                    Date date = new Date();
+                    try {
+                        date = format.parse(obj.getString("time_created"));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    boolean shared = obj.getInt("shared") != 0;
+                    Recording current = new Recording(name, creator, date, shared);
+                    current.setmID(recordingID);
+                    while (i < arr.length() && obj.getInt("recording_id") == recordingID) {
+                        int instrumentID = obj.getInt("instrument_id");
+                        Long delayTime = Long.parseLong(obj.getString("delay_time"));
+                        Note newNote = new Note(delayTime, instrumentID);
+                        current.addNote(newNote);
+                        Log.d(TAG, "parseCourseJSON: Second while loop: i = " + i);
+                        i++;
+                        if (i < arr.length()) obj = arr.getJSONObject(i);
+                    }
+                    recordingList.add(current);
+                }
+            } catch (JSONException e) {
+                reason =  "Unable to parse data, Reason: " + e.getMessage();
+                Log.d(TAG, "parseCourseJSON: Failure parsing JSON array, Reason: " + reason);
+            }
+
+        }
+        return reason;
+    }
 
 }
