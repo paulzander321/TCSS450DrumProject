@@ -189,8 +189,8 @@ public class RecordingListFragment extends Fragment {
 
                     Recording.parseCourseJSON(jsonObject.getString("data"), mRecordingList);
 
-                    Toast.makeText(getActivity().getApplicationContext(), mRecordingList.toString(),
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity().getApplicationContext(), mRecordingList.toString(),
+//                            Toast.LENGTH_LONG).show();
 
                     //Everything good, show list of recordings.
                     if (!mRecordingList.isEmpty()) {

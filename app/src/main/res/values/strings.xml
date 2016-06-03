@@ -12,7 +12,7 @@
     <string name="USERNAME">username</string>
     <string name="facebook_app_id">512888188911964</string>
     <string name="register_button">Register</string>
-    <string name="enter_username_hint">Enter username (not required for signin)</string>
+    <string name="enter_username_hint">Enter username (only for register)</string>
     <string name="logout_string">Log Out</string>
 
     <string name="play_drums_button_text">Play</string>

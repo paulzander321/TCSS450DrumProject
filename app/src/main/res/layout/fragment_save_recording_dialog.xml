@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AlertDialog.AppCompat.Light"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,11 +17,12 @@
 
     <ToggleButton
         android:id="@+id/share_checkbox"
+        android:background="@drawable/common_button"
         android:textOn="@string/recording_shared"
         android:textOff="@string/recording_private"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

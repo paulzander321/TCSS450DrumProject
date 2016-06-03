@@ -160,15 +160,4 @@
         android:clickable="false"
         android:visibility="invisible"/>
 
-    <!--<Button-->
-    <!--android:layout_width="60dp"-->
-    <!--android:layout_height="61dp"-->
-    <!--android:id="@+id/download_button"-->
-    <!--android:layout_x="70dp"-->
-    <!--android:layout_y="414dp"-->
-    <!--android:background="@drawable/download_arrow"-->
-    <!--android:visibility="visible" />-->
-
-
-
 </AbsoluteLayout>

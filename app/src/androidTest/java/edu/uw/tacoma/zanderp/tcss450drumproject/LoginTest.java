@@ -7,7 +7,7 @@ import com.robotium.solo.Solo;
 import edu.uw.tacoma.zanderp.tcss450drumproject.Authenticate.SignInActivity;
 
 /**
- * Created by Stepas on 6/3/2016.
+ * Tests the login and logout functionality of the application.
  */
 public class LoginTest extends ActivityInstrumentationTestCase2<SignInActivity> {
     private Solo solo;

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Entity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -969,7 +970,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, boolean sharing, String recordingName) {
+    public void onDialogPositiveClick(DialogFragment dialog, boolean sharing, final String recordingName) {
         if (recordingName.isEmpty()) {
             Toast.makeText(this, "Recording not saved! Please give your recording a name", Toast.LENGTH_LONG).show();
         } else if (mRecording.getmNotes().isEmpty()) {
@@ -995,6 +996,28 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
                 String url  = "http://cssgate.insttech.washington.edu/~zanderp/saveRecording.php";
                 task.execute(url);
                 Log.d(TAG, "onDialogPositiveClick: " + mRecording.getRecordingJSON().toString());
+                if (sharing) {
+                    final AlertDialog alertDialog = new AlertDialog.Builder(Drums.this).create();
+                    alertDialog.setTitle("Want to share?");
+                    alertDialog.setMessage("Do you want to share news of your recording via email?");
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent email = new Intent(Intent.ACTION_SEND);
+                                    email.putExtra(Intent.EXTRA_SUBJECT, "New Recording");
+                                    email.putExtra(Intent.EXTRA_TEXT, "Sup, pal! Come check out my new recording. It's called " + recordingName);
+                                    email.setType("message/rfc822");
+                                    startActivity(Intent.createChooser(email, "Choose an Email client to share news of your recording:"));
+                                }
+                            });
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    alertDialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
             }
             else {
                 Toast.makeText(this,

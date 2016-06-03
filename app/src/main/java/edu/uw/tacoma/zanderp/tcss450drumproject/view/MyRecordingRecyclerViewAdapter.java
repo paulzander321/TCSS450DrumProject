@@ -41,7 +41,7 @@ public class MyRecordingRecyclerViewAdapter extends RecyclerView.Adapter<MyRecor
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getmName());
-        holder.mContentView.setText(mValues.get(position).getmCreationTime().toString());
+        holder.mContentView.setText(mValues.get(position).getmCreator());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
