@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import edu.uw.tacoma.zanderp.tcss450drumproject.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass. Where it holds the Layout of the Drums.
  */
 public class DrumSet extends Fragment {
 
@@ -28,7 +28,6 @@ public class DrumSet extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
         super.onSaveInstanceState(outState);
     }
 

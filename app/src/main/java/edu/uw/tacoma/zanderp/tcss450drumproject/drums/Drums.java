@@ -106,8 +106,7 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drum_set);
-        custom = getIntent().getExtras().getBoolean("custom");
-        Log.d(CUSTOM, ""+custom);
+
         mRecord = false;
         btnRecord = (Button)findViewById(R.id.record);
         btnStopRecord = (Button)findViewById(R.id.stopbutton);
@@ -139,6 +138,8 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         paramsHihat = (AbsoluteLayout.LayoutParams) hihat.getLayoutParams();
         paramsPedal = (AbsoluteLayout.LayoutParams) pedal.getLayoutParams();
         paramsRide = (AbsoluteLayout.LayoutParams) ride.getLayoutParams();
+        custom = getIntent().getExtras().getBoolean("custom");
+        Log.d(CUSTOM, ""+custom);
         setButtons();
         LoadButtonLocation();
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +157,9 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
 
     }
 
+    /**
+     * Opens a dialog when you click the "add drums" in the customization
+     */
     private void openDialog(){
         LayoutInflater inflater = LayoutInflater.from(Drums.this);
         View subView = inflater.inflate(R.layout.add_button_layout, null);
@@ -308,15 +312,13 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
                 alertDialog.dismiss();
             }
         });
-
-
-
-
-
         alertDialog.show();
     }
 
-
+    /**
+     * Meakes the drum selected in the "add drum" dailog usable
+     * @param buttonID
+     */
     public void addDrum(int buttonID){
         Button drumDeleted = (Button) findViewById(buttonID);
         drumDeleted.setEnabled(true);
@@ -324,6 +326,11 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
 
     }
 
+
+    /**
+     * Deletes the drum selected
+     * @param buttonID
+     */
     public void deleteDrum(int buttonID){
         Button drumDeleted = (Button) findViewById(buttonID);
         drumDeleted.setEnabled(false);
@@ -332,12 +339,18 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         btnDelete.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * when the back botton is press calls the SaveButtonLocation()
+     */
     @Override
     public void onBackPressed() {
         SaveButtonLocation();
         super.onBackPressed();
     }
 
+    /**
+     * Loads all the saved location that was used before, goes to default if never used before
+     */
     private void LoadButtonLocation() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         paramsSnare.x = sharedPreferences.getInt("SNARE_X",231);
@@ -407,6 +420,9 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         ride.setLayoutParams(paramsRide);
     }
 
+    /**
+     * Saves the locations of drums and if they are deleted
+     */
     private void SaveButtonLocation() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -442,23 +458,27 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         editor.commit();
     }
 
+    /**
+     * Selects the drum with a square black box when you are customizing
+     * @param view
+     * @param button
+     */
     public void isSelected(View view, Button button){
         buttonSelected = button.getId();
-//        int myNewX = button.getBottom();
-//        int myNewY = button.getTop();
         AbsoluteLayout.LayoutParams absParams =
                 (AbsoluteLayout.LayoutParams)button.getLayoutParams();
-//        absParams.x= myNewX;
-//        absParams.y = myNewY;
-//        Log.d(X_POSITION, ""+ (absParams.x));
-//        Log.d(Y_POSITION,""+(absParams.y));
         selected.setLayoutParams(absParams);
         selected.setVisibility(View.VISIBLE);
         btnDelete.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Allows the user to drag any drum when in the customizing option
+     * @param view
+     * @param event
+     * @param b
+     */
     public void drag(View view, MotionEvent event, Button b) {
-
         AbsoluteLayout.LayoutParams params = (AbsoluteLayout.LayoutParams) b.getLayoutParams();
         b.setSelected(true);
         switch (event.getAction()) {
@@ -481,6 +501,9 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         }
     }
 
+    /**
+     * This recongizes whether the drums are in playing mode or customizing mode
+     */
     public void setButtons(){
         if(custom) {
             btnCustom.setText("Play Drums");
@@ -721,6 +744,10 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         }
     }
 
+    /**
+     * Sets the custom variable into true if its false and into false if true
+     * @param view
+     */
     public void setBtnCustom(View view){
         custom = !custom;
         setButtons();
