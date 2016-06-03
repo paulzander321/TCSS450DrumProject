@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Starts the documentation activity.
+     * @param view the view
+     */
     public void documentation(View view){
         Intent documentation = new Intent(this, Documentation.class);
         startActivity(documentation);

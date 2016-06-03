@@ -759,23 +759,6 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
      * a recording, will destroy it and start with black recording.
      */
     public void startRecording(View view) {
-
-        //TODO Add a counter here
-//        mCountdown.setText("3");
-//        mCountdown.setVisibility(View.VISIBLE);
-//        mCountdown.bringToFront();
-//
-//        for (int i = 2; i >= 0; i--) {
-//            final String newTime = "" + i;
-//            final Handler recordingCountdown = new Handler();
-//            recordingCountdown.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mCountdown.setText(newTime);
-//                }
-//            }, (3 - i) * 1000);
-//        }
-
         mRecording = new Recording();
         mRecord = true;
         btnPause.setVisibility(TextView.INVISIBLE);
@@ -1089,12 +1072,8 @@ public class Drums extends AppCompatActivity implements SaveRecordingDialogFragm
         protected void onPostExecute(String result) {
             try {
                 JSONObject jsonObject = new JSONObject(result);
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                 String status = (String) jsonObject.get("result");
-                if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "Recording successfully added!",
-                            Toast.LENGTH_LONG).show();
-                } else {
+                if (!status.equals("success")) {
                     Toast.makeText(getApplicationContext(), "Failed to add: " + jsonObject.get("error"),
                             Toast.LENGTH_LONG).show();
                 }

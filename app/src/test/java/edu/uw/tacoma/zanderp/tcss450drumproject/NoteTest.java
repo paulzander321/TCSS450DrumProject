@@ -14,13 +14,13 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Note;
  */
 public class NoteTest extends TestCase {
 
+    //Note to be used for test cases.
     private Note mNote;
 
     @Before
     public void setUp() {
         mNote = new Note(new Long(1000), R.raw.snare);
     }
-
 
     @Test
     public void testConstructor() {
@@ -37,16 +37,15 @@ public class NoteTest extends TestCase {
 
     @Test
     public void testGetNoteJSON() {
-        Note note = new Note(new Long(500), R.raw.snare);
         JSONObject expected;
         try {
             expected = new JSONObject();
-            expected.put("instrument_id", note.getmResourceID());
-            expected.put("delay_time", note.getmTimeFromStart());
+            expected.put("instrument_id", mNote.getmResourceID());
+            expected.put("delay_time", mNote.getmTimeFromStart());
         } catch (JSONException e) {
             expected = new JSONObject();
             e.printStackTrace();
         }
-        assertEquals(expected.toString(), note.getNoteJSON().toString());
+        assertEquals(expected.toString(), mNote.getNoteJSON().toString());
     }
 }

@@ -17,7 +17,10 @@ import java.util.List;
  */
 public class MyRecordingRecyclerViewAdapter extends RecyclerView.Adapter<MyRecordingRecyclerViewAdapter.ViewHolder> {
 
+    //The Recordings to be displayed.
     private final List<Recording> mValues;
+
+    //The listener that handles recording clicks.
     private final RecordingListFragment.OnListFragmentInteractionListener mListener;
 
     /**

@@ -45,10 +45,6 @@ public class Recording implements Serializable {
     /** True if this recording is shared with community. */
     private boolean mIsShared;
 
-    private int mLocalID;
-
-    private int mID;
-
     /**
      * Creates new recording with no values for name, creatorName, or creationTime.
      */
@@ -135,8 +131,6 @@ public class Recording implements Serializable {
         return mIsShared;
     }
 
-    public void setmLocalID(int id) { mLocalID = id; }
-
     public void setmName(String name) { mName = name; }
 
     public void setmCreator(String creator) { mCreator = creator; }
@@ -144,8 +138,6 @@ public class Recording implements Serializable {
     public void setmCreationTime(Date creationTime) { mCreationTime = creationTime; }
 
     public void setmIsShared(boolean isShared) { mIsShared = isShared; }
-
-    public void setmID(int id) { mID = id; }
 
     /** Creates and returns a JSON Object that represents this recording, including data for its notes. **/
     public JSONObject getRecordingJSON() {
@@ -196,7 +188,6 @@ public class Recording implements Serializable {
                     }
                     boolean shared = obj.getInt("shared") != 0;
                     Recording current = new Recording(name, creator, date, shared);
-                    current.setmID(recordingID);
                     while (i < arr.length() && obj.getInt("recording_id") == recordingID) {
                         int instrumentID = obj.getInt("instrument_id");
                         Long delayTime = Long.parseLong(obj.getString("delay_time"));

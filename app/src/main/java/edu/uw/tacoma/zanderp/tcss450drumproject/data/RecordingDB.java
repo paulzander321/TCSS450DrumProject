@@ -28,7 +28,14 @@ public class RecordingDB {
     public static final String DB_NAME = "MyRecordings.db";
     private static final String TAG = "RECORDING_DB";
 
+    /**
+     * The helper for the database.
+     */
     private RecordingDBHelper mRecordingDBHelper;
+
+    /**
+     * The Database that is used to save recordings.
+     */
     private SQLiteDatabase mSQLiteDatabase;
 
     /**
@@ -103,7 +110,6 @@ public class RecordingDB {
                     e.printStackTrace();
                 }
                 Recording current = new Recording(currentName, currentCreator, date, currentIsShared != 0);
-                current.setmLocalID((int) recordingID);
                 String selectNotes = "SELECT * FROM Notes JOIN RecordingNotes ON Notes.id = RecordingNotes.note_id WHERE recording_id = " + recordingID;
                 Cursor c2 = mSQLiteDatabase.rawQuery(selectNotes, null);
                 if (c2 != null) {
@@ -118,10 +124,6 @@ public class RecordingDB {
             c.close();
         }
         return toReturn;
-    }
-
-    public void updateRecording(Recording toUpdate) {
-        //TODO
     }
 
     class RecordingDBHelper extends SQLiteOpenHelper {

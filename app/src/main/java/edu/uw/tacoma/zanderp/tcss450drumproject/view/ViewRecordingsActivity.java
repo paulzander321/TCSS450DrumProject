@@ -21,7 +21,10 @@ import edu.uw.tacoma.zanderp.tcss450drumproject.Drums.Recording;
 public class ViewRecordingsActivity extends AppCompatActivity implements RecordingListFragment.OnListFragmentInteractionListener,
                                     RecordingDetailFragment.OnFragmentInteractionListener {
 
+    //Tells if a recording is currently playing.
     private boolean mIsPlaying;
+
+    //The current recording that will be played.
     private Recording mCurrentRecording;
 
     @Override

@@ -65,6 +65,7 @@ public class SaveRecordingDialogFragment extends DialogFragment {
     //The listener which will handle dialog interactions.
     SaveRecordingDialogListener mListener;
 
+    //Sends this based on the user's input whether recording will be shared or not.
     boolean mSharing;
 
     /* The activity that uses the fragment must implement this interface in order to receive

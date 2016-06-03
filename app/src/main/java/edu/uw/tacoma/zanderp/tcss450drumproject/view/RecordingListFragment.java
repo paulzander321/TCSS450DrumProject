@@ -96,24 +96,6 @@ public class RecordingListFragment extends Fragment {
                     "No network connection available. Cannot display recordings",
                     Toast.LENGTH_SHORT) .show();
         }
-
-        //TODO Figure this stuff out i.e. when to set the view to be from local db instead of remote.
-//        if (mRecordingDB == null) {
-//            Log.d(TAG, "onCreateView: recording database initialized");
-//            mRecordingDB = new RecordingDB(getActivity());
-//        }
-//        if (mRecordingList == null) {
-//            Log.d(TAG, "onCreateView: recording list initialized");
-//            SharedPreferences sharedPreferences = getActivity()
-//                    .getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
-//            mRecordingList = mRecordingDB.getMyRecordings(sharedPreferences.getString(getString(R.string.USERNAME), ""));
-//        }
-
-//        if (mRecordingList.isEmpty()) {
-//            Toast.makeText(getActivity(), "You currently have no recordings!", Toast.LENGTH_LONG).show();
-//        }
-//        Log.d(TAG, "onCreateView: " + mRecordingList.size());
-//        mRecyclerView.setAdapter(new MyRecordingRecyclerViewAdapter(mRecordingList, mListener));
         return view;
     }
 
@@ -189,9 +171,6 @@ public class RecordingListFragment extends Fragment {
 
                     Recording.parseCourseJSON(jsonObject.getString("data"), mRecordingList);
 
-//                    Toast.makeText(getActivity().getApplicationContext(), mRecordingList.toString(),
-//                            Toast.LENGTH_LONG).show();
-
                     //Everything good, show list of recordings.
                     if (!mRecordingList.isEmpty()) {
                         mRecyclerView.setAdapter(new MyRecordingRecyclerViewAdapter(mRecordingList, mListener));
@@ -202,7 +181,6 @@ public class RecordingListFragment extends Fragment {
                     }
 
                     mRecordingDB.closeDB();
-                    //TODO Delete old data from local database and replace with results.
 
 
                 } else {
